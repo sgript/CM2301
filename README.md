@@ -3,8 +3,8 @@ CM2301
 
 Prototyping split:
 
-facerec => shaz & jack
-adminpanel => tori, seb, matt & phil
+- facerec => shaz & jack
+- adminpanel => tori, seb, matt & phil
 
 Current aims:
 - Get video output from facial detection without facial detection boxes
