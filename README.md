@@ -6,8 +6,8 @@
 
 - Contributors:
 
-	Shazaib Ahmad
-	Jack Parsons
+	* Shazaib Ahmad
+	* Jack Parsons
 
 - Instructions:
 
@@ -16,6 +16,7 @@
 - Notes:
 
 	Currently only detecting faces, taking image and cropping. Next aim is matching.
+	
 	Then must embed PHP to upload faces to Database.
 
 
