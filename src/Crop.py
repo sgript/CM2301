@@ -77,6 +77,8 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
             for Face in Faces:
                 Cropped_Image = PIL_Scale(PIL_Image, Face[0], Box_Scale)
                 fname, ext = os.path.splitext(Img)
+                max = 128, 128
+                Cropped_Image.thumbnail(max, Image.ANTIALIAS)
                 Cropped_Image.save(fname+'_crop'+str(n)+ext)
                 n+=1
 
