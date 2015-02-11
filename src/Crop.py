@@ -1,3 +1,5 @@
+# https://stackoverflow.com/questions/13211745/detect-face-then-autocrop-pictures
+
 '''
 This file will open the webcam up, then extract the image, this image then will be cropped
 so that it only shows the face of the person, which can then later be compared.
