@@ -12,6 +12,8 @@ from PIL import Image
 import glob
 import os
 
+global count
+
 def Detect_Face(Img, faceCascade, Give_Image = False):
     # Detects face with haarcascade -- http://www.lucaamore.com/?p=638
 
@@ -81,12 +83,22 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
                 fname, ext = os.path.splitext(Img)
                 max = 128, 128
                 Cropped_Image.thumbnail(max, Image.ANTIALIAS)
-                Cropped_Image.save(fname+'_crop'+str(n)+ext)
-                n+=1
+                Cropped_Image.save(fname+'_crop'+ext)
+                ++n
 
         else:
             print 'No faces found: ', Img
 
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
-Crop_Face('../img/face.jpg', Box_Scale = 1)
+def Start_Crop():
+    Crop_Face('../img/face1.jpg', Box_Scale = 1)
+    count = 1
+    while count <= 5:
+
+        Crop_Face('../img/face'+str(count)+'.jpg', Box_Scale = 1)
+        count+=1
+        print "count is: " + str(count)
+#Crop_Face('../img/face.jpg', Box_Scale = 1)
+Start_Crop()
+

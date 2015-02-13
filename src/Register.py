@@ -8,6 +8,7 @@ Phase I - Capture image
 __author__ = "shazaibahmad"
 
 import cv2 as cv
+import glob, os 
 
 def ImageFromCam():
 	cap = cv.VideoCapture(0)
@@ -18,7 +19,6 @@ def ImageFromCam():
 	 
 	Face_Cascade = cv.CascadeClassifier('../cv/haarcascade_frontalface_default.xml')
 	#Eye_Cascade = cv.CascadeClassifier('./cv/haarcascade_eye.xml') # Later may add eyes.
-
 
 	while True:
 	    # Capture frame-by-frame
@@ -35,13 +35,21 @@ def ImageFromCam():
 	    # Display the resulting frame
 	    cv.imshow('Webcam - Active (Press Q to finish)', frame)
 	    
+	    path = '../img/'
+	    fname = 'face'
+	    ext = '.jpg'
+	    #picturesnameNo = 1
+	    picturesNo = 1
 	    key = cv.waitKey(99)
 	    if key == 99:
-	    	cv.imwrite('../img/face.jpg', frame)
+	    	while picturesNo <= 5:
+	    		# JACK ---> ADD SOME SLEEP OR INSTEAD OF WHILE LOOP, COUNT KEY PRESSES TO 5 THEN BREAK
+	    		cv.imwrite(path+fname+str(picturesNo)+ext, frame)
+	    		print "captured"
+	    		picturesNo += 1;
 	    	break
-	    # if cv.waitKey(1) & 0xFF == ord('c'):
-	    #     cv.imwrite('../img/face.jpg', frame)
-	    #     print "captured"
+	    elif key == 113:
+	    	break
 
 
 	# When everything is done, release the capture
