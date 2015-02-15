@@ -1,0 +1,6 @@
+#ignore pictures
+*.jpg
+*.png
+
+#Ignore compiled py
+*.pyc
