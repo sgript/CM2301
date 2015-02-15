@@ -6,10 +6,17 @@
 #      by: PyQt4 UI code generator 4.11.1
 #
 # WARNING! All changes made in this file will be lost!
+'''
+@worzel666
+
+Need to add capturing screen to the GUI.
+
+Added an empty function called Register, this is for the register button on the GUI
+Once clicked, it should retrieve the information entered on the four forms.
+'''
 
 from PyQt4 import QtCore, QtGui
 import sys
-import cv2 as cv
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -46,7 +53,6 @@ class Ui_MainWindow(QtGui.QWidget):
         self.formLayout_3.setFieldGrowthPolicy(QtGui.QFormLayout.FieldsStayAtSizeHint)
         self.formLayout_3.setObjectName(_fromUtf8("formLayout_3"))
         self.lineEdit_2 = QtGui.QLineEdit(self.centralwidget)
-        #self.lineEdit_2.setToolTipDuration(-1)
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
         self.formLayout_3.setWidget(0, QtGui.QFormLayout.LabelRole, self.lineEdit_2)
         self.lineEdit = QtGui.QLineEdit(self.centralwidget)
@@ -62,17 +68,14 @@ class Ui_MainWindow(QtGui.QWidget):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.formLayout_3.setWidget(3, QtGui.QFormLayout.FieldRole, self.pushButton)
         self.verticalLayout.addLayout(self.formLayout_3)
-        #MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 806, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
-        #MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
-        #MainWindow.setStatusBar(self.statusbar)
+
 
         self.retranslateUi(MainWindow)
-        self.ImageFromCam(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -86,47 +89,9 @@ class Ui_MainWindow(QtGui.QWidget):
 
         self.pushButton.clicked.connect(self.Register)
 
-    def ImageFromCam(self, MainWindow):
-        cap = cv.VideoCapture(0)
-        cap.set(1, 20.0)
-        cap.set(3,640)  
-        cap.set(4,480) 
-
-         
-        Face_Cascade = cv.CascadeClassifier('../cv/haarcascade_frontalface_default.xml')
-        #Eye_Cascade = cv.CascadeClassifier('./cv/haarcascade_eye.xml') # Later may add eyes.
-
-
-        while True:
-            # Capture frame-by-frame
-            ret, frame = cap.read()
-
-            Gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-
-            Faces = Face_Cascade.detectMultiScale(Gray, scaleFactor = 1.1, minNeighbors = 5, minSize = (30, 30), flags = cv.cv.CV_HAAR_SCALE_IMAGE)
-
-            # Draw a rectangle around the faces
-            for (x, y, w, h) in Faces: # To draw rectangle for face
-                cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-            # Display the resulting frame
-            cv.imshow('Webcam - Active (Press Q to finish)', frame)
-            
-            key = cv.waitKey(99)
-            if key == 99:
-                cv.imwrite('../img/face.jpg', frame)
-                break
-            # if cv.waitKey(1) & 0xFF == ord('c'):
-            #     cv.imwrite('../img/face.jpg', frame)
-            #     print "captured"
-
-
-        # When everything is done, release the capture
-        cap.release()
-        cv.destroyAllWindows()
 
     def Register(self):
-        print "Hi"
+        print "Action for Register goes here"
 
 
 if __name__ == '__main__':
