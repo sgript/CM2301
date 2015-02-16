@@ -1,0 +1,12 @@
+import pyfaces
+import FaceDetection
+
+test = PyFaces(self,FaceDetection.main(),"/home/jack/Programming/Group")
+
+if test.match(self) == 0:
+    print("NO MATCH")
+else:
+    printf("MATCH")
+
+#if __name__ == '__main__':
+    
