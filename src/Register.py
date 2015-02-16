@@ -7,6 +7,7 @@ Phase I - Capture image
 
 __author__ = "shazaibahmad"
 
+import time
 import cv2 as cv
 import glob, os 
 
@@ -45,6 +46,7 @@ def ImageFromCam():
 	    	while picturesNo <= 5:
 	    		# JACK ---> ADD SOME SLEEP OR INSTEAD OF WHILE LOOP, COUNT KEY PRESSES TO 5 THEN BREAK
 	    		cv.imwrite(path+fname+str(picturesNo)+ext, frame)
+                        time.sleep(.4)
 	    		print "captured"
 	    		picturesNo += 1;
 	    	break
