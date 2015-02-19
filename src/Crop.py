@@ -10,7 +10,7 @@ Phase II - Crop face out
 import cv 
 from PIL import Image 
 import glob
-import os
+import os,re
 
 global count
 
@@ -99,6 +99,11 @@ def Start_Crop():
         Crop_Face('../img/face'+str(count)+'.jpg', Box_Scale = 1)
         count+=1
         print "count is: " + str(count)
+    
+    print "Cleaning up..."
+    for f in os.listdir('../img'):
+	if re.search("face[0-9]?[^_]jpg",f):
+	    os.remove(os.path.join('../img',f))	
 #Crop_Face('../img/face.jpg', Box_Scale = 1)
 Start_Crop()
 
