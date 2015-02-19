@@ -36,7 +36,7 @@ def ImageFromCam():
 	    cv.imshow('Webcam - Active (Press Q to finish)', frame)
 	    
 	    key = cv.waitKey(99)
-	    if key == 99:
+	    if key & 255== 99:
 	    	cv.imwrite('../img/face.jpg', frame)
 	    	break
 	    # if cv.waitKey(1) & 0xFF == ord('c'):
