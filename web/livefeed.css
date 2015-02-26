@@ -1,0 +1,109 @@
+body {
+  padding-top: 10px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+img {
+    margin-right: 1500px;
+    width:250px;
+    height:100px;
+}
+
+.link2{
+ height:50px;
+ width:50px;
+ margin-left: 830px;
+ font-size: 18px;
+}
+
+.nav-justified {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width:700px;
+  margin-left: 200px;
+  margin-top:10px;
+}
+.nav-justified > li > a {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: Georgia;
+  color: white;
+  text-align: center;
+  background-color: #939393; /* Old browsers */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#939393), to(#939393));
+  background-image: -webkit-linear-gradient(top, #939393 0%, #939393 100%);
+  background-image:      -o-linear-gradient(top, #939393 0%, #939393 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(top), color-stop(0%, #939393), to(#939393));
+  background-image:         linear-gradient(top, #939393 0%, #939393 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#939393', endColorstr='#939393',GradientType=0 ); /* IE6-9 */
+  background-repeat: repeat-x; /* Repeat the gradient */
+  border-bottom: 1px solid #d5d5d5;
+}
+.nav-justified > .active > a,
+.nav-justified > .active > a:hover,
+.nav-justified > .active > a:focus {
+  background-color: #0D4F8B;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+          box-shadow: inset 0 3px 7px rgba(0,0,0,.15);
+}
+.nav-justified > li:first-child > a {
+  border-radius: 5px 5px 0 0;
+}
+.nav-justified > li:last-child > a {
+  border-bottom: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+@media (min-width: 768px) {
+  .nav-justified {
+    max-height: 52px;
+  }
+  .nav-justified > li > a {
+    border-right: 1px solid #d5d5d5;
+    border-left: 1px solid #fff;
+  }
+  .nav-justified > li:first-child > a {
+    border-left: 0;
+    border-radius: 5px 0 0 5px;
+  }
+  .nav-justified > li:last-child > a {
+    border-right: 0;
+    border-radius: 0 5px 5px 0;
+
+  }
+}
+
+.table-striped {
+  position: relative;
+  left: 250px;
+  top: 28px;
+}
+.table-striped tr {
+  border: 1px black solid;
+}
+
+.table-striped th {
+  height: 40px;
+  width: 300px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px black solid;
+  background-color: #6491BA;
+}
+.table-striped td {
+  text-align: center;
+  border: 1px black solid;
+  padding: 10px;
+  font: bold;
+}
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: #f9f9f9;}
+.table-striped > tbody > tr:nth-child(even) > td {
+  background-color: #A1A2A4;}
+}
