@@ -7,6 +7,7 @@ Phase I - Capture image
 
 __author__ = "shazaibahmad"
 
+import time, sys
 import cv2 as cv
 from Crop import Start_Crop
 
@@ -52,27 +53,29 @@ def ImageFromCam():
 	    	found = 0
 
 	    print found
-	    key = cv.waitKey(99)
-	    if key > 127:
-	    	key = key & 255
-
-	    if key == 99:
+	    
+	    #key = cv.waitKey(99)
+	    time.sleep(.4)
+	    key = cv.waitKey(5)
+	    if key:
 	    	if found == 1:
 	    		cv.imwrite('../capturedimg/face.jpg', frame)
+	    		Start_Crop('../capturedimg')
 	    		break
 
 	    	else:
 	    		print "Facial features were not found!"
 
-	    elif key == 113:
-			cap.release()
-			cv.destroyAllWindows()
-			print "Exiting.."
-			sys.exit(0)
+
+	    	if key == 113:
+				cap.release()
+				cv.destroyAllWindows()
+				print "Exiting.."
+				sys.exit(0)
 		
 	cap.release()
 	cv.destroyAllWindows()
 
 ImageFromCam()
-Start_Crop('../capturedimg')
+
 #execfile('Crop.py')
