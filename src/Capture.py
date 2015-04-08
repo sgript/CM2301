@@ -54,7 +54,6 @@ def ImageFromCam():
 
 	    print found
 	    
-	    #key = cv.waitKey(99)
 	    time.sleep(.4)
 	    key = cv.waitKey(5)
 	    if key:
