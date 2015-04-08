@@ -59,7 +59,7 @@ def ImageFromCam():
 		fname = 'face'
 		ext = '.jpg'
 		capNumb = 0
-		key = cv.waitKey(99) #Wait for key input, with a delay of 99ms
+		key = cv.waitKey(99) 
 		if key > 127:
 			key = key & 255 # Deal with silly keyboard inputs 
 		if key == 99:
