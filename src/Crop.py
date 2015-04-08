@@ -91,19 +91,19 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
 
 # Crop all jpegs in a folder. Note: the code uses glob which follows unix shell rules.
 # Use the boxScale to scale the cropping area. 1=opencv box, 2=2x the width and height
-def Start_Crop():
-    Crop_Face('../img/face1.jpg', Box_Scale = 1)
-    count = 1
+def Start_Crop(folder):
+    Crop_Face(folder+"/face.jpg", Box_Scale = 1)
+    count = 0
     while count <= 5:
 
-        Crop_Face('../img/face'+str(count)+'.jpg', Box_Scale = 1)
+        Crop_Face(folder+'/face'+str(count)+'.jpg', Box_Scale = 1)
         count+=1
         print "count is: " + str(count)
     
     print "Cleaning up..."
-    for f in os.listdir('../img'):
+    for f in os.listdir(folder+"/"):
 	if re.search("face[0-9]?[^_]jpg",f):
-	    os.remove(os.path.join('../img',f))	
+	    os.remove(os.path.join(folder,f))	
 #Crop_Face('../img/face.jpg', Box_Scale = 1)
-Start_Crop()
+#Start_Crop()
 

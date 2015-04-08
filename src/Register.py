@@ -10,6 +10,7 @@ import time
 import sys
 import cv2 as cv
 import glob, os 
+from Crop import Start_Crop
 
 def ImageFromCam():
 	cap = cv.VideoCapture(0)
@@ -90,4 +91,5 @@ def ImageFromCam():
 	cv.destroyAllWindows()
 
 ImageFromCam()
-execfile('Crop.py')
+Start_Crop("../img")
+#execfile('Crop.py')
