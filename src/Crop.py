@@ -8,7 +8,7 @@ Phase II - Crop face out
 '''
 
 import cv 
-from PIL import Image 
+from PIL import Image
 import glob
 import os,re
 
@@ -68,7 +68,7 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
     faceCascade = cv.Load('../cv/haarcascade_frontalface_alt.xml') # Used frontalface_alt instead of _default
 
     Images = glob.glob(Img_Pattern)
-    if len(Images) <= 0:
+    if len(Images) <= -1:
         print 'No Images Found'
         return
 
