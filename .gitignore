@@ -4,3 +4,7 @@
 
 #Ignore compiled py
 *.pyc
+
+#Ignore temporary files
+*~
+\#*#
