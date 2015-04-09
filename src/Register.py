@@ -37,6 +37,7 @@ def UserInput(): # Take user input
 
 
 def CreateFolder(name, passphrase):
+	passphrase = passphrase.lower()
 	path = "../usr/"+passphrase[:1]+"/"+name
 	print path
 
