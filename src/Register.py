@@ -68,15 +68,16 @@ def ImageFromCam(userpath):
 		eyes = None
 			# Draw a rectangle around the faces
 		for (x, y, w, h) in Faces: # To draw rectangle for face
-			cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
+			#cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			# For now no rectangles around the face, already checking for faults in real-time
 
 			roi_gray = Gray[y:y+h, x:x+w]
 			roi_color = frame[y:y+h, x:x+w]
 			eyes = Eye_Cascade.detectMultiScale(roi_gray)
 
-			for (ex,ey,ew,eh) in eyes:
-				cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
+			# Don't need to draw rectangle around the eyes
+			# for (ex,ey,ew,eh) in eyes:
+			# 	cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
 
 
 		cv.imshow('Webcam - Active (Press Q to finish, C to capture)', frame)
