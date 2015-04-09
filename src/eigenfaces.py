@@ -1,4 +1,5 @@
-import pickle, math, shutil, tempfile, Image
+import pickle, math, shutil, tempfile
+from PIL import Image
 from os import listdir, mkdir
 from os.path import exists, isdir, isfile, join, normpath, basename
 
