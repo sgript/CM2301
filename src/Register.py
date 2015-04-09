@@ -18,7 +18,7 @@ def UserInput(): # Take user input
 	firstname = raw_input("Enter forename: ")
 	lastname = raw_input("Enter lastname: ")
 	passphrase = raw_input("Enter passphrase: ")
-
+	passphrase = passphrase.lower()
 
 	name = str(lastname)+"_"+str(firstname) # lastname_forename format for folder names
 
@@ -29,6 +29,7 @@ def UserInput(): # Take user input
 			if passphrase in myfile.read():
 				print "Already exists."
 				passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
+				passphrase = passphrase.lower()
 
 			else: 				
 				myfile.write(str(passphrase)+"\n")
@@ -37,7 +38,6 @@ def UserInput(): # Take user input
 
 
 def CreateFolder(name, passphrase):
-	passphrase = passphrase.lower()
 	path = "../usr/"+passphrase[:1]+"/"+name
 	print path
 
