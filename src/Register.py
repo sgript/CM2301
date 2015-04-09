@@ -6,13 +6,49 @@ Phase I - Capture image
 '''
 __author__ = "shazaibahmad"
 
-import time
 import sys
-import cv2 as cv
+import mmap
 import glob, os 
+import cv2 as cv
 from Crop import Start_Crop
 
-def ImageFromCam():
+
+def UserInput(): # Take user input
+	firstname = raw_input("Enter forename: ")
+	lastname = raw_input("Enter lastname: ")
+	passphrase = raw_input("Enter passphrase: ")
+
+
+	name = str(lastname)+"_"+str(firstname) # lastname_forename format for folder names
+
+	f = open('../passphrases.txt')
+	#s = mmap.mmap(f.fileno(), 0, access = mmap.ACCESS_READ)
+	
+	#while s.find(passphrase) != -1: # Check if passphrase already exists -- Currently no duplicates
+	while(True):
+		if passphrase in open('../passphrases.txt').read():
+			print "Already exists."
+			passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
+
+		else: 
+			with open("../passphrases.txt", "a") as myfile: # Else append to big list of passphrases
+				myfile.write(str(passphrase)+"\n")
+				CreateFolder(name, passphrase)
+				break
+
+
+def CreateFolder(name, passphrase):
+	path = "../usr/"+name
+	print path
+
+	if not os.path.exists(path):
+		os.makedirs(path)
+		with open(path+"/speech.txt", "w+") as theirfile: # Then save a personal record of their passphrase in their folder
+				theirfile.write(str(passphrase))
+
+	ImageFromCam(path)
+
+def ImageFromCam(userpath):
 	cap = cv.VideoCapture(0)
 	cap.set(1, 20.0)
 	cap.set(3,640)  
@@ -22,7 +58,7 @@ def ImageFromCam():
 	Face_Cascade = cv.CascadeClassifier('../cv/haarcascade_frontalface_default.xml')
 	Eye_Cascade = cv.CascadeClassifier('../cv/haarcascade_eye.xml') # Later may add eyes.
 
-
+	capNumb = 0
 	while True:
 		# Capture frame-by-frame
 		ret, frame = cap.read()
@@ -40,8 +76,8 @@ def ImageFromCam():
 			roi_color = frame[y:y+h, x:x+w]
 			eyes = Eye_Cascade.detectMultiScale(roi_gray)
 
-			# for (ex,ey,ew,eh) in eyes:
-			# 	cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
+			for (ex,ey,ew,eh) in eyes:
+				cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
 
 
 		cv.imshow('Webcam - Active (Press Q to finish, C to capture)', frame)
@@ -55,10 +91,10 @@ def ImageFromCam():
 
 		print found
 
-		path = '../img/'
+		path = '../usr/'+str(userpath)+"/"
 		fname = 'face'
 		ext = '.jpg'
-		capNumb = 0
+		
 		key = cv.waitKey(99) 
 		if key > 127:
 			key = key & 255 # Deal with silly keyboard inputs 
@@ -72,7 +108,7 @@ def ImageFromCam():
 					except Exception:
 						print Exception
 					
-					print "Captured"
+					#print "Captured"
 					capNumb+=1	
 
 				if x == 4:
@@ -87,9 +123,11 @@ def ImageFromCam():
 			print "Exiting.."
 			sys.exit(0)
 
+	print "Captured " + str(capNumb) + " images!" 
 	cap.release()
 	cv.destroyAllWindows()
+	Start_Crop(userpath)
 
-ImageFromCam()
-Start_Crop("../img")
-#execfile('Crop.py')
+
+UserInput()
+
