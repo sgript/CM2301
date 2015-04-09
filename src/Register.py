@@ -10,6 +10,7 @@ import sys
 import mmap
 import glob, os 
 import cv2 as cv
+from dir import alphFolder
 from Crop import Start_Crop
 
 
@@ -21,24 +22,22 @@ def UserInput(): # Take user input
 
 	name = str(lastname)+"_"+str(firstname) # lastname_forename format for folder names
 
-	f = open('../passphrases.txt')
-	#s = mmap.mmap(f.fileno(), 0, access = mmap.ACCESS_READ)
 	
-	#while s.find(passphrase) != -1: # Check if passphrase already exists -- Currently no duplicates
+	alphFolder()
 	while(True):
-		if passphrase in open('../passphrases.txt').read():
-			print "Already exists."
-			passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
+		with open("../passphrases.txt", "a+") as myfile:
+			if passphrase in myfile.read():
+				print "Already exists."
+				passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
 
-		else: 
-			with open("../passphrases.txt", "a") as myfile: # Else append to big list of passphrases
+			else: 				
 				myfile.write(str(passphrase)+"\n")
 				CreateFolder(name, passphrase)
 				break
 
 
 def CreateFolder(name, passphrase):
-	path = "../usr/"+name
+	path = "../usr/"+passphrase[:1]+"/"+name
 	print path
 
 	if not os.path.exists(path):
