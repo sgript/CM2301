@@ -103,7 +103,7 @@ def Start_Crop(folder):
     
     print "Cleaning up directory..."
     for f in os.listdir(folder+"/"):
-	if re.search("face[0-9]?[^_]jpg",f):
+	if re.search("face[0-9]+[^_]jpg",f):
 	    os.remove(os.path.join(folder,f))	
     print "Done!"
 
