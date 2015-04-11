@@ -94,8 +94,9 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
 def Start_Crop(folder):
     #Crop_Face(folder+"/face.jpg", Box_Scale = 1)
 
+    upto = 5 # TEMPORARY, CHANGE TO BE AN ARGUMENT, TAKEN FROM USER INPUT LATER 
     count = 0
-    while count <= 5:
+    while count <= upto:
 
         Crop_Face(folder+'/face'+str(count)+'.jpg', Box_Scale = 1)
         count+=1
@@ -103,7 +104,7 @@ def Start_Crop(folder):
     
     print "Cleaning up directory..."
     for f in os.listdir(folder+"/"):
-	if re.search("face[0-9]+[^_]jpg",f):
-	    os.remove(os.path.join(folder,f))	
+        reg = "face0|[1-9]\d{0,2}?[^_]jpg"
+        if re.search(str(reg),f):
+            os.remove(os.path.join(folder,f))   
     print "Done!"
-

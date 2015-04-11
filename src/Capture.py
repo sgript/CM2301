@@ -56,10 +56,11 @@ def ImageFromCam():
 	    print found
 	    
 	    time.sleep(.4)
-	    key = cv.waitKey(5)
+	    key = cv.waitKey(20)
+
 	    if key:
 	    	if found == 1:
-	    		cv.imwrite('../capturedimg/face.jpg', frame)
+	    		cv.imwrite('../capturedimg/face1.jpg', frame)
 	    		Start_Crop('../capturedimg')
 	    		break
 

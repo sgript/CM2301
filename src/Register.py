@@ -114,6 +114,7 @@ def ImageFromCam(userpath):
 
 				if x == 4:
 					break # from while loop
+					
 
 			else: 
 				print "Facial features were not found!"
