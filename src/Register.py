@@ -96,28 +96,26 @@ def ImageFromCam(userpath):
 		fname = 'face'
 		ext = '.jpg'
 		
-		key = cv.waitKey(99) 
+		key = cv.waitKey(5)
 		if key > 127:
 			key = key & 255 # Deal with silly keyboard inputs 
-		if key == 99:
+		if key:
+			try:
+				cv.imwrite(path+fname+str(capNumb)+ext, frame)
+				print "Capped"
 
-			if found == 1:
-				for x in range(0, 5):
-					try:
-						cv.imwrite(path+fname+str(capNumb)+ext, frame)
-
-					except Exception:
-						print Exception
+			except Exception:
+				print Exception
 					
 					#print "Captured"
-					capNumb+=1	
+			capNumb+=1	
 
-				if x == 4:
-					break # from while loop
+			if capNumb == 5:
+				break # from while loop
 					
 
-			else: 
-				print "Facial features were not found!"
+			# if : 
+			# 	print "Facial features were not found!"
 
 		elif key == 113:
 			cap.release()

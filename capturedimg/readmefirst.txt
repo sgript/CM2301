@@ -1,1 +1,0 @@
-This will be the temp image storage for Capture.py, this will be compared with the user directories

@@ -1,4 +1,6 @@
-import sys, optparse, Image
+import sys, optparse
+
+from PIL import Image
 
 from eigenfaces import find_matching_image, parse_folder
 from utils import merge_images
@@ -71,6 +73,11 @@ if __name__ == '__main__':
     else:
         dist, match = pyfaces.match()
 
+    print 'Matches = ' + str(match)
+    print 'Distance = ' + str(dist)
     if match is not None:
         print 'The image "%s" matches "%s" with a distance of "%s"' % \
                     (options.image, match, dist)
+
+    else:
+        print 'No match.'
