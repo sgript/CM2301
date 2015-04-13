@@ -52,7 +52,7 @@ def matchpool(pool, folder):
 			print 'No match.\n'										
 
 
-						#print pool[x] # debug
+		#print pool[x] # debug
 						
 
 verification("spock") # debug
