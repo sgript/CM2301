@@ -1,9 +1,10 @@
 #ignore pictures
-*.jpg
-*.png
+
+#*.jpg
+#*.png
 
 #ignore txt
-*.txt
+#*.txt
 
 #ignore mac files thing
 .DS_Store
