@@ -84,7 +84,7 @@ def find_matching_image(image, directory, threshold, egfnum=None, resize=True):
     dist = ((weights - input_weight.transpose()) ** 2).sum(axis=1)
     idx = argmin(dist)
     mindist = math.sqrt(dist[idx])
-    reconstruct_faces(bundle, egfnum, weights)
+    #reconstruct_faces(bundle, egfnum, weights)
 
     # if mindist < threshold: # May be used later
     return (mindist, join(directory, bundle.images_list[idx]))
@@ -136,7 +136,7 @@ def create_face_bundle(directory, images_list):
 
     bundle = FaceBundle(directory, images_list, width, height, adjfaces,
                         eigen_space, avg, evals)
-    create_eigenimages(bundle, eigen_space) # create eigenface images
+    #create_eigenimages(bundle, eigen_space) # create eigenface images
     return bundle
 
 
@@ -191,50 +191,50 @@ def validate_directory(images_list):
     return file_list
 
 
-def reconstruct_faces(bundle, egfnum, weights):
-    """ Reconstructs probe faces """
-    evals_sub = bundle.evals[:egfnum]
-    new_weights = zeros(weights.shape)
+# def reconstruct_faces(bundle, egfnum, weights):
+#     """ Reconstructs probe faces """
+#     evals_sub = bundle.evals[:egfnum]
+#     new_weights = zeros(weights.shape)
 
-    x_coords, y_coords = xrange(len(weights)), xrange(len(evals_sub))
-    for x, y in ((x, y) for x in x_coords for y in y_coords):
-        new_weights[x][y] = weights[x][y] * evals_sub[y]
+#     x_coords, y_coords = xrange(len(weights)), xrange(len(evals_sub))
+#     for x, y in ((x, y) for x in x_coords for y in y_coords):
+#         new_weights[x][y] = weights[x][y] * evals_sub[y]
 
-    try:
-        if isdir(RECON_DIRNAME):
-            shutil.rmtree(RECON_DIRNAME, True)
-        mkdir(RECON_DIRNAME)
-    except Exception, e:
-        raise IOError, 'Some problem removing directory: "%s"', e.message
-    else:
-        phinew = dot(new_weights, bundle.eigenfaces[:egfnum,:])
-        xnew = phinew + bundle.average
-        for x in xrange(len(bundle.images_list)):
-            make_image(phinew[x], join(RECON_DIRNAME, RECONPHI_FMT % x),
-                       (bundle.width, bundle.height), True)
-            make_image(xnew[x], join(RECON_DIRNAME, RECONX_FMT % x),
-                       (bundle.width, bundle.height), True)
-
-
-def create_eigenimages(bundle, eigen_space):
-    """ Creates eigenfaces images from `eigen_space` at EIGENFACES_DIR """
-    if isdir(EIGENFACES_DIR):
-        shutil.rmtree(EIGENFACES_DIR, True)
-    mkdir(EIGENFACES_DIR)
-
-    for idx in xrange(len(bundle.images_list)):
-        make_image(eigen_space[idx],
-                   join(EIGENFACES_DIR, EIGENFACE_IMG_FMT % idx),
-                   (bundle.width, bundle.height))
+#     try:
+#         if isdir(RECON_DIRNAME):
+#             shutil.rmtree(RECON_DIRNAME, True)
+#         mkdir(RECON_DIRNAME)
+#     except Exception, e:
+#         raise IOError, 'Some problem removing directory: "%s"', e.message
+#     else:
+#         phinew = dot(new_weights, bundle.eigenfaces[:egfnum,:])
+#         xnew = phinew + bundle.average
+#         for x in xrange(len(bundle.images_list)):
+#             make_image(phinew[x], join(RECON_DIRNAME, RECONPHI_FMT % x),
+#                        (bundle.width, bundle.height), True)
+#             make_image(xnew[x], join(RECON_DIRNAME, RECONX_FMT % x),
+#                        (bundle.width, bundle.height), True)
 
 
-def make_image(v, filename, size, scaled=True):
-    """ Builds an image named `filename` of `size` dimensions
-    that might be scaled """
-    v.shape = (-1,) #change to 1 dim array
-    im = Image.new('L', size)
-    if scaled:
-        a, b = v.min(), v.max()
-        v = ((v - a) * 255 / (b - a))
-    im.putdata(v)
-    im.save(filename)
+# def create_eigenimages(bundle, eigen_space):
+#     """ Creates eigenfaces images from `eigen_space` at EIGENFACES_DIR """
+#     if isdir(EIGENFACES_DIR):
+#         shutil.rmtree(EIGENFACES_DIR, True)
+#     mkdir(EIGENFACES_DIR)
+
+#     for idx in xrange(len(bundle.images_list)):
+#         make_image(eigen_space[idx],
+#                    join(EIGENFACES_DIR, EIGENFACE_IMG_FMT % idx),
+#                    (bundle.width, bundle.height))
+
+
+# def make_image(v, filename, size, scaled=True):
+#     """ Builds an image named `filename` of `size` dimensions
+#     that might be scaled """
+#     v.shape = (-1,) #change to 1 dim array
+#     im = Image.new('L', size)
+#     if scaled:
+#         a, b = v.min(), v.max()
+#         v = ((v - a) * 255 / (b - a))
+#     im.putdata(v)
+#     im.save(filename)
