@@ -2,6 +2,12 @@
 *.jpg
 *.png
 
+#ignore txt
+*.txt
+
+#ignore mac files thing
+.DS_Store
+
 #Ignore compiled py
 *.pyc
 
