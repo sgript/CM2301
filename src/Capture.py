@@ -10,6 +10,7 @@ __author__ = "shazaibahmad"
 import time, sys
 import cv2 as cv
 from Crop import Start_Crop
+import os
 
 def ImageFromCam():
 	cap = cv.VideoCapture(0)
@@ -61,7 +62,8 @@ def ImageFromCam():
 	    if key:
 	    	if found == 1:
 	    		cv.imwrite('../capturedimg/face1.jpg', frame)
-	    		Start_Crop('../capturedimg')
+	    		Start_Crop('../capturedimg', 1)
+	    		os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg')
 	    		break
 
 	    	else:
@@ -77,6 +79,6 @@ def ImageFromCam():
 	cap.release()
 	cv.destroyAllWindows()
 
-#ImageFromCam()
+ImageFromCam() # COMMENT THIS LATER
 
 #execfile('Crop.py')
