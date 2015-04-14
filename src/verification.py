@@ -57,6 +57,7 @@ def matchpool(pool, folder):
 
 		#print pool[x] # debug
         entryPerson =  min(matchDist, key=matchDist.get)
-        print entryPerson
+        names = entryPerson.split('_')
+        print names[1],names[0]
 
 verification("spock") # debug
