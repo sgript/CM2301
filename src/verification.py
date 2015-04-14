@@ -34,6 +34,7 @@ def verification(speech):
 
 
 def matchpool(pool, folder):
+        matchDist = {}
 	for x in range(0,len(pool)):
 		image = '../capturedimg/face1_crop.jpg'
 		directory = '../usr/'+folder+"/"+str(pool[x])
@@ -47,12 +48,15 @@ def matchpool(pool, folder):
 		if match is not None:
 			print '\nThe image "%s" matches "%s" with a distance of "%s"\n' % \
 							(image, match, dist)
+                        matchDist[str(pool[x])] = dist
 
 		else:
-			print 'No match.\n'										
+			print 'No match.\n'
+                        matchDist[str(pool[x])] = 100
 
 
 		#print pool[x] # debug
-						
+        entryPerson =  min(matchDist, key=matchDist.get)
+        print entryPerson
 
 verification("spock") # debug
