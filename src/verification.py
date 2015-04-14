@@ -1,10 +1,12 @@
 
 import os
 from pyfaces import *
+import speech_recognition as sr
+from Capture import *
 
 
 
-def verification(speech):
+def verification(speech):	
     folder = speech[:1]
 
     #print "speech : " + folder # debug
@@ -19,21 +21,30 @@ def verification(speech):
     	#print("Directory %s" % dirName) # debug
     	
     	if os.path.isfile(dirName+"/speech.txt"):
-			with open(dirName+"/speech.txt", "r") as speechfile:
-				theirpass = speechfile.readlines()[0]	
-				#print theirpass # debug
+    		with open(dirName+"/speech.txt", "r") as speechfile:
+    			theirpass = speechfile.readlines()[0]
 
-				if theirpass == speech:
-					person = os.path.basename(os.path.normpath(dirName))
-					#print person # debug
+    			#print theirpass # debug
 
-					pool.append(person)
+    			if theirpass == speech:
+    				person = os.path.basename(os.path.normpath(dirName))
+    				#print person # debug
 
+    				pool.append(person)
 
+    			elif theirpass != speech:
+    				print 'No passphrase match found.'
+    				execfile('speech.py')
+    		
     matchpool(pool, folder)
+    				
+
+
+			
 
 
 def matchpool(pool, folder):
+        ImageFromCam()
         matchDist = {}
 	for x in range(0,len(pool)):
 		image = '../capturedimg/face1_crop.jpg'
@@ -51,13 +62,14 @@ def matchpool(pool, folder):
                         matchDist[str(pool[x])] = dist
 
 		else:
-			print 'No match.\n'
+			print 'No image match.\n'
                         matchDist[str(pool[x])] = 100
 
 
 		#print pool[x] # debug
         entryPerson =  min(matchDist, key=matchDist.get)
         names = entryPerson.split('_')
-        print names[1],names[0]
+        print "chosen is " + names[1],names[0]
+        sys.exit()
 
-verification("spock") # debug
+#verification("spock") # debug

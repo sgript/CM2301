@@ -77,6 +77,6 @@ def ImageFromCam():
 	cap.release()
 	cv.destroyAllWindows()
 
-ImageFromCam()
+#ImageFromCam()
 
 #execfile('Crop.py')

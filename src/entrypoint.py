@@ -1,5 +1,6 @@
 import speech_recognition as sr
 
+
 r = sr.Recognizer()
 with sr.Microphone() as source:                # use the default microphone as $
     audio = r.listen(source)                   # listen for the first phrase an$
@@ -14,8 +15,9 @@ while(cont):
 		if saidWord == "entry":
 			print("User asked for entry, initialising..")
 			cont = 0;
-			execfile('Capture.py')
+			execfile('speech.py')
 		else:
+			print "You did not ask for entry. Retry.."
 			execfile('entrypoint.py')
 
 	except LookupError:                            # speech is unintelligible
