@@ -16,7 +16,7 @@ class database(object):
         user_id = crs.execute("SELECT user_id FROM user_records WHERE photo_file=%s, audio_file=%s") % (path_to_face, passphrase)
         crs.execute("INSERT INTO user_locate(user_id, forename, surname, room, access_time) VALUES (%d, %s, %s, 0, 0)")
 
-    def update_user(self, room, user_id):
+    def update_user(self, room=1, user_id):
         current_time = time.strftime("%H:%M:%S")
         crs = con.cursor()
         crs.execute("UPDATE user_locate SET room=%s, access_time=%s WHERE user_id=%d") % (room, current_time, user_id)
