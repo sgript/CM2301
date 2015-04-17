@@ -24,6 +24,16 @@ class database(object):
         current_time = time.strftime("%H:%M:%S")
         crs = self.con.cursor()
         crs.execute("UPDATE user_locate SET room='%s', access_time='%s' WHERE user_id='%d';"% (room, current_time, user_id)) 
+
+    def verify(self,path_to_face, passphrase, room):
+        crs = self.con.cursor()
+        query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN user_groups WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
+        rooms = crs.execute(query)
+        if room not in rooms:
+            return False
+        else:
+            return True
+
     def exit(self):
         self.con.close()
 
