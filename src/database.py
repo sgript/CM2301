@@ -49,10 +49,18 @@ class database(object):
     def get_rooms(self):
         crs = self.con.cursor()
         return_data = []
-        rooms = "SELECT room_name,room_id FROM room_lookup WHERE 1"
-        print crs.execute(rooms)
-        return_data = crs.execute(rooms)
-        return return_data
+        rooms = "SELECT DISTINCT room_name,room_id FROM room_lookup WHERE 1"
+        row= crs.execute(rooms)
+        rows = crs.fetchall()
+        i = 0
+        room_id = []
+        room_name = []
+        for row in rows:
+            print row
+            room_name.append(row[0])
+            room_id.append(row[1])
+            i+=1
+        return room_id,room_name
     def exit(self):
         self.con.close()
 
