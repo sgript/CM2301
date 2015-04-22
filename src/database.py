@@ -28,12 +28,31 @@ class database(object):
     def verify(self,path_to_face, passphrase, room):
         crs = self.con.cursor()
         query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN user_groups WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
-        rooms = crs.execute(query)
+        rooms = []
+        rooms.append(crs.execute(query))
+        print path_to_face+passphrase
+        print rooms
         if room not in rooms:
+            print "aayyy"
             return False
         else:
+            print "hi"
             return True
 
+    def get_groups(self):
+        crs = self.con.cursor()
+        groups = "SELECT DISTINCT group_name,group_id FROM user_groups WHERE 1"
+        print crs.execute(groups)
+        return_data = crs.execute(groups)
+        return return_data
+
+    def get_rooms(self):
+        crs = self.con.cursor()
+        return_data = []
+        rooms = "SELECT room_name,room_id FROM room_lookup WHERE 1"
+        print crs.execute(rooms)
+        return_data = crs.execute(rooms)
+        return return_data
     def exit(self):
         self.con.close()
 
