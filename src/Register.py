@@ -12,7 +12,9 @@ import glob, os
 import cv2 as cv
 from dir import alphFolder
 from Crop import Start_Crop
+import database
 
+passphrase = ''
 
 def UserInput(): # Take user input
 	firstname = raw_input("Enter forename: ")
@@ -105,6 +107,10 @@ def ImageFromCam(userpath):
 				print "Capped"
 				Start_Crop(userpath, capNumb)
 				os.system('rsync %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath[:8], userpath[3:8]))
+                                print userpath[:8]
+                                print userpath[3:8]
+#                                db = database.database()
+ #                               db.add_user(passphrase,                             
 
 			except Exception:
 				print Exception
@@ -129,7 +135,6 @@ def ImageFromCam(userpath):
 	cap.release()
 	cv.destroyAllWindows()
 	#Start_Crop(userpath)
-
 
 UserInput()
 
