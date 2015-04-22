@@ -20,11 +20,10 @@ class database(object):
         user_id = crs.execute(query)
         crs.execute("INSERT INTO user_locate(user_id, forename, surname, room, access_time) VALUES ('%d', '%s', '%s', 0, 0);" % (user_id,first_name,last_name))
 
-<<<<<<< HEAD
+
     def update_user(self, user_id):
         print "hello"
         
-=======
     def update_user(self, user_id, room=1):
         current_time = time.strftime("%H:%M:%S")
         crs = self.con.cursor()
@@ -33,13 +32,40 @@ class database(object):
     def verify(self,path_to_face, passphrase, room):
         crs = self.con.cursor()
         query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN user_groups WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
-        rooms = crs.execute(query)
+        rooms = []
+        rooms.append(crs.execute(query))
+        print path_to_face+passphrase
+        print rooms
         if room not in rooms:
+            print "aayyy"
             return False
         else:
+            print "hi"
             return True
 
->>>>>>> 4eda288b21aab1467e92f4190aa6695fd7b85c83
+    def get_groups(self):
+        crs = self.con.cursor()
+        groups = "SELECT DISTINCT group_name,group_id FROM user_groups WHERE 1"
+        print crs.execute(groups)
+        return_data = crs.execute(groups)
+        return return_data
+
+    def get_rooms(self):
+        crs = self.con.cursor()
+        return_data = []
+        rooms = "SELECT DISTINCT room_name,room_id FROM room_lookup WHERE 1"
+        row= crs.execute(rooms)
+        rows = crs.fetchall()
+        i = 0
+        room_id = []
+        room_name = []
+        for row in rows:
+            print row
+            room_name.append(row[0])
+            room_id.append(row[1])
+            i+=1
+        return room_id,room_name
+
     def exit(self):
         self.con.close()
 
