@@ -15,7 +15,8 @@ class database(object):
         crs.execute("INSERT INTO user_records(user_id, forename, surname, photo_file, audio_file, specified_rooms, permitted_groups) VALUES('%d', '%s', '%s', '%s', '%s', '%s', '%s')") % rand_no
 
     def update_user(self, user_id):
-
+        print "hello"
+        
     def exit(self):
         self.con.close()
 
