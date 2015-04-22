@@ -46,13 +46,19 @@ class database(object):
     def get_groups(self):
         crs = self.con.cursor()
         groups = "SELECT DISTINCT group_name,group_id FROM user_groups WHERE 1"
-        print crs.execute(groups)
-        return_data = crs.execute(groups)
-        return return_data
+        row = crs.execute(groups)
+        rows = crs.fetchall()
+        i = 0
+        group_id = []
+        group_name = []
+        for row in rows:
+            group_name.append(row[0])
+            group_id.append(row[1])
+            i+=1
+        return group_id,group_name
 
     def get_rooms(self):
         crs = self.con.cursor()
-        return_data = []
         rooms = "SELECT DISTINCT room_name,room_id FROM room_lookup WHERE 1"
         row= crs.execute(rooms)
         rows = crs.fetchall()

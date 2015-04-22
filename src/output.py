@@ -32,9 +32,10 @@ class Ui_MainWindow(QtGui.QMainWindow):
     def setupUi(self, MainWindow):
         db = database.database()
         roomid,rooms = db.get_rooms()
-        print roomid
-        print rooms
+        groupid,groups = db.get_groups()
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        print groupid
+        print groups
         MainWindow.resize(800, 600)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -46,7 +47,8 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.comboBox.setObjectName(_fromUtf8("comboBox"))
         print rooms
         print roomid
-        for i in range len(roomid):
+        self.comboBox.addItem("Room",0)
+        for i in range(len(roomid)):
             self.comboBox.addItem(rooms[i],roomid[i])
         self.lineEdit = QtGui.QLineEdit(self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(50, 90, 113, 29))
@@ -69,6 +71,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.comboBox_2 = QtGui.QComboBox(self.centralwidget)
         self.comboBox_2.setGeometry(QtCore.QRect(260, 170, 83, 25))
         self.comboBox_2.setObjectName(_fromUtf8("comboBox_2"))
+        self.comboBox_2.addItem("Group",0)
+        for i in range(len(groupid)):
+            self.comboBox_2.addItem(groups[i],groupid[i])
         self.label_4 = QtGui.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(260, 140, 81, 17))
         self.label_4.setObjectName(_fromUtf8("label_4"))
