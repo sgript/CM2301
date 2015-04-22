@@ -1,5 +1,6 @@
 import speech_recognition as sr
-
+from audio import Audio
+import time
 
 r = sr.Recognizer()
 with sr.Microphone() as source:                # use the default microphone as $
@@ -14,6 +15,8 @@ while(cont):
 
 		if saidWord == "entry":
 			print("User asked for entry, initialising..")
+			time.sleep(0.5)
+			Audio().aud('../audio/crtna.wav')
 			cont = 0;
 			execfile('speech.py')
 		else:

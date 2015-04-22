@@ -7,10 +7,13 @@ def checkspeech():
 	with sr.Microphone() as source:
 		audio = r.adjust_for_ambient_noise(source, duration = 1)
 		audio = r.dynamic_energy_threshold = True
-		audio = r.listen(source)                   # listen for the first phrase an$
-		
+		audio = r.listen(source)
+
+		#print("You said " + r.recognize(audio))
+	
 
 	try:
+
 	    list = r.recognize(audio,True)                  # generate a list of possible transcriptions
 	    print("Possible transcriptions:")
 	    for prediction in list:
@@ -29,8 +32,9 @@ def checkspeech():
 	        	execfile('speech.py')
 	        	break
 
-	except LookupError:                                 # speech is unintelligible
-	    print("Could not understand audio, retry..")
+
+	except LookupError, e:                                 # speech is unintelligible
+	    print("Could not understand audio, retry.." + str(e))
 	    execfile('speech.py')
 
 

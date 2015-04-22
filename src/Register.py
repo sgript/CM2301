@@ -106,11 +106,15 @@ def ImageFromCam(userpath):
 				cv.imwrite(path+fname+str(capNumb)+ext, frame)
 				print "Capped"
 				Start_Crop(userpath, capNumb)
+<<<<<<< HEAD
 				os.system('rsync %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath[:8], userpath[3:8]))
                                 print userpath[:8]
                                 print userpath[3:8]
 #                                db = database.database()
  #                               db.add_user(passphrase,                             
+=======
+				#os.system('rsync %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath[:8], userpath[3:8]))
+>>>>>>> 331b109ad5820e4224a5a2fde873a97ff549f584
 
 			except Exception:
 				print Exception

@@ -20,6 +20,10 @@ class database(object):
         user_id = crs.execute(query)
         crs.execute("INSERT INTO user_locate(user_id, forename, surname, room, access_time) VALUES ('%d', '%s', '%s', 0, 0);" % (user_id,first_name,last_name))
 
+
+    def update_user(self, user_id):
+        print "hello"
+        
     def update_user(self, user_id, room=1):
         current_time = time.strftime("%H:%M:%S")
         crs = self.con.cursor()
@@ -61,6 +65,7 @@ class database(object):
             room_id.append(row[1])
             i+=1
         return room_id,room_name
+
     def exit(self):
         self.con.close()
 
