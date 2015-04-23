@@ -15,9 +15,9 @@
 * Takes capture, matches to record in database
 * To register use Register.py
 
-Usage:
-python entrypoint.py
-python Register.py
+**Usage:**
+	python entrypoint.py
+	python Register.py
 
 Records are saved under /usr/letter/lastname_firstname/
 All records are rsynced to web server. 
