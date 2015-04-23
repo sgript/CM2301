@@ -16,8 +16,10 @@
 * To register use Register.py
 
 **Usage:**
+
 	```
 	python entrypoint.py
+	
 	python Register.py
 	```
 
