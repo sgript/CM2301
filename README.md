@@ -16,11 +16,9 @@
 * To register use Register.py
 
 **Usage:**
-
-	```python
-	python entrypoint.py
-	python Register.py
-	```
+	`python entrypoint.py`
+	`python Register.py`
+	
 
 Records are saved under /usr/letter/lastname_firstname/
 All records are rsynced to web server. 
