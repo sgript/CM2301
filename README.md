@@ -1,24 +1,21 @@
 # FaceTen 
 
-- Introduction:
+### Introduction:
+	Detecting faces and recognising faces, along with speech to text and database storing. 
 
-	Facial recognition program made by Face Ten. 
-
-- Contributors:
-
+### Contributors:
 	* Shazaib Ahmad
 	* Jack Parsons
 
-- Instructions:
+### Instructions:
 	* Use entrypoint.py to initialise the system
 	* Passphrase to microphone: Entry to initialise 
 	* Runs speech.py - Speak user-registered passphrase
 	* Takes capture, matches to record in database
-
 	* To register use Register.py
 	
 
-- To-do:
+### To-do:
 	* Check user's status is "active" in the system
 	* Finish off voiceovers using audio class
 	* Finish GUI / Polish
