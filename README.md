@@ -1,14 +1,14 @@
 # FaceTen 
 
-######
-###### Introduction:
+
+# Introduction:
 	* Detecting faces and recognising faces, along with speech to text (Google Speech API) and database storing. 
 
-###### Contributors:
+# Contributors:
 	* Shazaib Ahmad (sIurps)
 	* Jack Parsons  (worzel666)
 
-###### Instructions:
+# Instructions:
 	* Use entrypoint.py to initialise the system
 	* Passphrase to microphone: Entry to initialise 
 	* Runs speech.py - Speak user-registered passphrase
@@ -23,7 +23,7 @@
 	All records are rsynced to web server. 
 	
 
-###### To-do:
+# To-do:
 	* Check user's status is "active" in the system
 	* Finish off voiceovers using audio class
 	* Finish GUI / Polish
