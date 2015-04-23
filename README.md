@@ -1,5 +1,5 @@
 # FaceTen 
-
+![alt tag](http://i.imgur.com/KaInIug.png)
 
 **Introduction:**
 * Detecting faces and recognising faces, along with speech to text (Google Speech API) and database storing. 
