@@ -1,7 +1,7 @@
 # FaceTen 
 
 
-** Introduction: **
+**Introduction:**
 	* Detecting faces and recognising faces, along with speech to text (Google Speech API) and database storing. 
 
 ** Contributors: **
