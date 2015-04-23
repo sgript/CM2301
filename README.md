@@ -10,7 +10,7 @@
 
 **Instructions:**
 * Use entrypoint.py to initialise the system
-* Passphrase to microphone: Entry to initialise 
+* Passphrase to microphone: Say "entry" to initialise 
 * Runs speech.py - Speak user-registered passphrase
 * Takes capture, matches to record in database
 * To register use Register.py
