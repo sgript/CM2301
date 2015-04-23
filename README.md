@@ -17,9 +17,8 @@
 
 **Usage:**
 
-	```
+	```python
 	python entrypoint.py
-	
 	python Register.py
 	```
 
