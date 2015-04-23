@@ -71,7 +71,7 @@ def matchpool(pool, folder, speech, room):
         names = entryPerson.split('_')
         print "chosen is " + names[1],names[0] + match
         cb = database.database()
-        cb.verify("../usr/"+str(speech[:1])+str(entryPerson),speech,room)
+        cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
         sys.exit()
 
 verification("spock","T2.09") # debug
