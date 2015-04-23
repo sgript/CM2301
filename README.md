@@ -15,8 +15,7 @@
 	* Takes capture, matches to record in database
 	* To register use Register.py
 
-	Usage:
-
+	**Usage:**
 	python entrypoint.py
 	python Register.py
 	
