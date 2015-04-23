@@ -5,8 +5,8 @@
 	* Detecting faces and recognising faces, along with speech to text and database storing. 
 
 ###### Contributors:
-	* Shazaib Ahmad
-	* Jack Parsons
+	* Shazaib Ahmad (sIurps)
+	* Jack Parsons  (worzel666)
 
 ###### Instructions:
 	* Use entrypoint.py to initialise the system
