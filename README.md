@@ -2,7 +2,7 @@
 
 ######
 ###### Introduction:
-	* Detecting faces and recognising faces, along with speech to text and database storing. 
+	* Detecting faces and recognising faces, along with speech to text (Google Speech API) and database storing. 
 
 ###### Contributors:
 	* Shazaib Ahmad (sIurps)
@@ -18,6 +18,9 @@
 	Usage:
 	python entrypoint.py
 	python Register.py
+
+	Records are saved under /usr/letter/lastname_firstname/
+	All records are rsynced to web server. 
 	
 
 ###### To-do:
