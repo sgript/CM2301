@@ -4,7 +4,7 @@ so that it only shows the face of the person, which can then later be compared.
 
 Phase I - Capture image
 '''
-__author__ = "shazaibahmad"
+
 
 import sys
 import mmap
@@ -23,18 +23,19 @@ def UserInput(): # Take user input
 	name = str(lastname)+"_"+str(firstname) # lastname_forename format for folder names
 
 	
+	f = open('../passphrases.txt', 'a+')
 	alphFolder()
 	while(True):
-		with open("../passphrases.txt", "a+") as myfile:
-			if passphrase in myfile.read():
-				print "Already exists."
-				passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
-				passphrase = passphrase.lower()
-
-			else: 				
-				myfile.write(str(passphrase)+"\n")
+		if not os.path.exists("../usr/"+passphrase[:1]+"/"+name):
+			if passphrase not in f.read():
+				f.write(str(passphrase)+"\n")
 				CreateFolder(name, passphrase)
 				break
+
+		else: 				
+			print "Already exists."
+			passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
+			passphrase = passphrase.lower()
 
 
 def CreateFolder(name, passphrase):
