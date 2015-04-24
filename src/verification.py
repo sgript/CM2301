@@ -4,6 +4,7 @@ from pyfaces import *
 import speech_recognition as sr
 from Capture import *
 import database
+from audio import Audio
 
 def verification(speech, room):	
     folder = speech[:1]
@@ -34,7 +35,10 @@ def verification(speech, room):
 
     			elif theirpass != speech:
     				print 'No passphrase match found.'
-    				execfile('speech.py')
+                        Audio().aud('../audio/NoMatch.wav')
+                        execfile('speech.py')
+
+
     		
     matchpool(pool, folder, speech, room)
     				
@@ -65,6 +69,7 @@ def matchpool(pool, folder, speech, room):
 		else:
 			print 'No image match.\n'
                         matchDist[str(pool[x])] = 100
+                        Audio().aud('../audio/NoMatch.wav')
 
 		#print pool[x] # debug
         entryPerson =  min(matchDist, key=matchDist.get)

@@ -1,9 +1,11 @@
 import speech_recognition as sr
 from verification import verification
+from audio import Audio
 
 def checkspeech():
 	r = sr.Recognizer()
 	print 'Speak now.'
+	Audio().aud('../audio/Speak.wav')
 	with sr.Microphone() as source:
 		audio = r.adjust_for_ambient_noise(source, duration = 1)
 		audio = r.dynamic_energy_threshold = True
@@ -28,14 +30,16 @@ def checkspeech():
 	        	
 
 	        else:
+	        	Audio().aud('../audio/Retry.wav')
 	        	print 'Retry'
 	        	execfile('speech.py')
 	        	break
 
 
-	except LookupError, e:                                 # speech is unintelligible
-	    print("Could not understand audio, retry.." + str(e))
-	    execfile('speech.py')
+	except LookupError, e: 
+		Audio().aud('../audio/NotUnderstood.wav')
+		print("Could not understand audio, retry.." + str(e))
+		execfile('speech.py')
 
 
 checkspeech()

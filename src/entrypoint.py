@@ -20,9 +20,11 @@ while(cont):
 			cont = 0;
 			execfile('speech.py')
 		else:
+
+			Audio().aud('../audio/Retry.wav')
 			print "You did not ask for entry. Retry.."
 			execfile('entrypoint.py')
 
-	except LookupError:                            # speech is unintelligible
-	    print("Could not understand audio")
-	    execfile('entrypoint.py')
+	except LookupError:
+		print("Could not understand audio")
+		execfile('entrypoint.py')
