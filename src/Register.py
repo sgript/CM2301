@@ -24,10 +24,11 @@ def UserInput(): # Take user input
 
 	
 	f = open('../passphrases.txt', 'a+')
+	userspeech = open("../usr/"+passphrase[:1]+"/"+name+"/speech.txt", 'a+')
 	alphFolder()
 	while(True):
 		if not os.path.exists("../usr/"+passphrase[:1]+"/"+name):
-			if passphrase not in f.read():
+			if passphrase not in userspeech.read():
 				f.write(str(passphrase)+"\n")
 				CreateFolder(name, passphrase)
 				break
