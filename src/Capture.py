@@ -63,18 +63,18 @@ def ImageFromCam():
 	    	if found == 1:
 	    		cv.imwrite('../capturedimg/face1.jpg', frame)
 	    		Start_Crop('../capturedimg', 1)
-	    		os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg')
+	    		#os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg')
 	    		break
 
 	    	else:
 	    		print "Facial features were not found!"
 
 
-	    	if key == 113:
-				cap.release()
-				cv.destroyAllWindows()
-				print "Exiting.."
-				sys.exit(0)
+	    if key == 113:
+			cap.release()
+			cv.destroyAllWindows()
+			print "Exiting.."
+			sys.exit(0)
 		
 	cap.release()
 	cv.destroyAllWindows()

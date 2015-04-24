@@ -100,31 +100,34 @@ def ImageFromCam(userpath):
 		if key > 127:
 			key = key & 255 # Deal with silly keyboard inputs 
 		if key:
-			try:
-				cv.imwrite(path+fname+str(capNumb)+ext, frame)
-				print "Capped"
-				Start_Crop(userpath, capNumb)
-				os.system('rsync %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath[:8], userpath[3:8]))
+			if found:
+				try:
+					cv.imwrite(path+fname+str(capNumb)+ext, frame)
+					print "Captured"
+					Start_Crop(userpath, capNumb)
+					os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s' % (userpath, capNumb, userpath[3:8]))
 
-			except Exception:
-				print Exception
-					
-					#print "Captured"
-			capNumb+=1	
+				except Exception:
+					print Exception
+						
+				capNumb+=1	
 
-			if capNumb == 6:
-				break # from while loop
-					
+				if capNumb == 6:
+					break # from while loop
+			else:
+				print "Facial features were not found!"		
 
-			# if : 
-			# 	print "Facial features were not found!"
-
-		elif key == 113:
+		if key == 113:
 			cap.release()
 			cv.destroyAllWindows()
 			print "Exiting.."
 			sys.exit(0)
 
+
+	os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s' % (userpath, userpath[3:8]))
+	print "userpath = " + userpath
+	print "userpath[:8] = " + userpath[:8]
+	print "userpath[3:8] = " + userpath[3:8]
 	print "Captured " + str(capNumb-1) + " images!" 
 	cap.release()
 	cv.destroyAllWindows()
