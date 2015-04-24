@@ -94,7 +94,7 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
 def Start_Crop(folder, picnum):
     #Crop_Face(folder+"/face.jpg", Box_Scale = 1)
 
-    print folder+'/face/'+str(picnum)+'.jpg'
+    print folder+'/face'+str(picnum)+'.jpg'
     Crop_Face(folder+'/face'+str(picnum)+'.jpg', Box_Scale = 1)
 
     

@@ -12,6 +12,8 @@ import glob, os
 import cv2 as cv
 from dir import alphFolder
 from Crop import Start_Crop
+import time
+import re
 
 
 def UserInput(): # Take user input
@@ -21,22 +23,34 @@ def UserInput(): # Take user input
 	passphrase = passphrase.lower()
 
 	name = str(lastname)+"_"+str(firstname) # lastname_forename format for folder names
-
+	name = name.lower()
 	
 	f = open('../passphrases.txt', 'a+')
-	userspeech = open("../usr/"+passphrase[:1]+"/"+name+"/speech.txt", 'a+')
+	os.system("rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/" % (passphrase[:1]))
+
+	foldercheck = 1;
 	alphFolder()
 	while(True):
-		if not os.path.exists("../usr/"+passphrase[:1]+"/"+name):
-			if passphrase not in userspeech.read():
-				f.write(str(passphrase)+"\n")
-				CreateFolder(name, passphrase)
-				break
+		if os.path.exists("../usr/"+passphrase[:1]+"/"+name):	
+			notfound = 1
+			if notfound:
+				if name[-1].isdigit() == True:
+					slicenum = len(str(int(re.search(r'\d+', name).group())))
+					name = name[:-slicenum]
+					name+=str(foldercheck)
 
-		else: 				
-			print "Already exists."
-			passphrase = raw_input("Enter passphrase: ") # If so, they must re-enter
-			passphrase = passphrase.lower()
+				else:
+					name+=str(foldercheck)
+
+				print "The name " + name[:-1] + " was taken, re-assigned: " + name
+				foldercheck+=1
+
+
+		else:
+			print "Found name: " + str(name)
+			f.write(str(passphrase)+"\n") # MOVE TO ELSE NOW
+			CreateFolder(name, passphrase)
+			break			
 
 
 def CreateFolder(name, passphrase):
@@ -61,6 +75,8 @@ def ImageFromCam(userpath):
 	Eye_Cascade = cv.CascadeClassifier('../cv/haarcascade_eye.xml') # Later may add eyes.
 
 	capNumb = 0
+	os.system('rsync --recursive %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath, userpath[3:8]))
+
 	while True:
 		# Capture frame-by-frame
 		ret, frame = cap.read()
@@ -107,7 +123,9 @@ def ImageFromCam(userpath):
 					cv.imwrite(path+fname+str(capNumb)+ext, frame)
 					print "Captured"
 					Start_Crop(userpath, capNumb)
-					os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s' % (userpath, capNumb, userpath[3:8]))
+					os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, capNumb, userpath[3:8], userpath[9:]))
+					print "userpath is " + userpath
+					print "userpath[3:8] is " + userpath[3:8]
 
 				except Exception:
 					print Exception
@@ -126,7 +144,7 @@ def ImageFromCam(userpath):
 			sys.exit(0)
 
 
-	os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s' % (userpath, userpath[3:8]))
+	os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, userpath[3:8], userpath[9:]))
 	print "userpath = " + userpath
 	print "userpath[:8] = " + userpath[:8]
 	print "userpath[3:8] = " + userpath[3:8]
