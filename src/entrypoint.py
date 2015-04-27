@@ -3,13 +3,14 @@ from audio import Audio
 import time
 
 r = sr.Recognizer()
+print 'Please say "Entry".'
 with sr.Microphone() as source:                # use the default microphone as $
     audio = r.listen(source)                   # listen for the first phrase an$
 
 
 cont = 1
 while(cont):
-	print "Trying.."
+
 	try:
 		saidWord = r.recognize(audio)
 		print("You said " + saidWord)    # recognize speech using Google $

@@ -6,45 +6,40 @@ from Capture import *
 import database
 from audio import Audio
 
-def verification(speech, room):	
+
+def verification(speech, room = 1):	
     folder = speech[:1]
 
-    #print "speech : " + folder # debug
+
+    print "speech : " + folder # debug
 
     direc = "../usr/"+folder
     os.system("rsync c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s/ direc" % speech[:1])
-    #print direc # debug
+    print direc # debug
 
     rootdir = direc
 
     pool = [] # of people with same passphrases
     for dirName, subdirList, fileList in os.walk(rootdir, topdown=True):
-    	#print("Directory %s" % dirName) # debug
+    	print("Directory %s" % dirName) # debug
     	
     	if os.path.isfile(dirName+"/speech.txt"):
-    		with open(dirName+"/speech.txt", "r") as speechfile:
+            with open(dirName+"/speech.txt", "r") as speechfile:
     			theirpass = speechfile.readlines()[0]
 
-    			#print theirpass # debug
+            if theirpass == speech:
+                person = os.path.basename(os.path.normpath(dirName))
+                pool.append(person)
 
-    			if theirpass == speech:
-    				person = os.path.basename(os.path.normpath(dirName))
-    				#print person # debug
+            else:
+                print "No passphrase match found."
+                Audio().aud('../audio/NoMatch.wav')
+                execfile('speech.py')
 
-    				pool.append(person)
-
-    			elif theirpass != speech:
-    				print 'No passphrase match found.'
-                        Audio().aud('../audio/NoMatch.wav')
-                        execfile('speech.py')
-
-
-    		
     matchpool(pool, folder, speech, room)
+
+
     				
-
-
-			
 
 
 def matchpool(pool, folder, speech, room):
@@ -79,4 +74,5 @@ def matchpool(pool, folder, speech, room):
         cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
         sys.exit()
 
-#verification("spock","T2.09") # debug
+
+#verification("spock") # debug

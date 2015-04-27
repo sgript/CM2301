@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from verification import verification
 from audio import Audio
+import math
 
 def checkspeech():
 	r = sr.Recognizer()
@@ -21,6 +22,7 @@ def checkspeech():
 	    for prediction in list:
 	    	text = prediction["text"]
 	    	confidence = prediction["confidence"]*100
+	    	confidence = math.ceil(confidence)
 	        print(" " + text + " (" + str(confidence) + "%)")
 
 	        if confidence > 80:
