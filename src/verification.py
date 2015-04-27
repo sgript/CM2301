@@ -7,6 +7,8 @@ import database
 from audio import Audio
 
 def verification(speech, room):	
+    print "VERIFICATION STUFF"
+
     folder = speech[:1]
 
     #print "speech : " + folder # debug
@@ -79,4 +81,4 @@ def matchpool(pool, folder, speech, room):
         cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
         sys.exit()
 
-verification("spock","T2.09") # debug
+#verification("spock","T2.09") # debug

@@ -9,6 +9,7 @@ with sr.Microphone() as source:                # use the default microphone as $
 
 cont = 1
 while(cont):
+	print "Trying.."
 	try:
 		saidWord = r.recognize(audio)
 		print("You said " + saidWord)    # recognize speech using Google $
