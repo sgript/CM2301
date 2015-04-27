@@ -7,8 +7,6 @@ import database
 from audio import Audio
 
 def verification(speech, room):	
-    print "VERIFICATION STUFF"
-
     folder = speech[:1]
 
     #print "speech : " + folder # debug
