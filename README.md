@@ -22,16 +22,18 @@
 
 * Records are saved under /usr/letter/lastname_firstname/
 * All records are rsynced to web server. 
+* Please read terminal outputs when using
 	
 
 **To-do:**
-* Check user's status is "active" in the system
-* Finish off voiceovers using audio class
 * Finish GUI / Polish
-* Read only for speech.txt(?)
 * Ensure user exists in the database (as well as being "active") before letting them in
-* Testing - test cases, compatibility with administrator portal
-* Program to executables and package files to port dependencies
+* Test for compatability with administrator portal
+* Check user's status is "active" in the system
+* Read only for speech.txt(?)
+* Program to executables and package files to port dependencies 
+
+
 
 
 
