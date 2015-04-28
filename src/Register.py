@@ -9,7 +9,7 @@ import sys
 import mmap
 import glob, os 
 import cv2 as cv
-from dir import alphFolder
+from direc import alphFolder
 from Crop import Start_Crop, clean
 import time
 import re
@@ -49,7 +49,7 @@ class Register:
 				print "Found name: " + str(name)
 				f.write(str(passphrase)+"\n") # MOVE TO ELSE NOW
 				print "Creating user folder.."
-				CreateFolder(name, passphrase)
+				register.CreateFolder(name, passphrase)
 				break			
 
 
@@ -69,7 +69,7 @@ class Register:
 			print "Capturing in.." + str(x+1)
 
 		print "Capturing now - Please keep still, whilst facing the camera!"
-		ImageFromCam(path)
+		register.ImageFromCam(path)
 
 	def ImageFromCam(self, userpath):
 		cap = cv.VideoCapture(0)

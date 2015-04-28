@@ -11,13 +11,13 @@ from audio import Audio
 class Speech:
 	def passphraseErr(self):
 		Audio().aud('../audio/NotUnderstood.wav')
-		passphrase()
+		Speech().passphrase()
 
 
 	def passphrase(self):
 		r = sr.Recognizer()
-		Audio().aud('../audio/Speak.wav')
 		print 'Please say your chosen passphrase AFTER the beep.'
+		Audio().aud('../audio/Speak.wav')
 		Audio().aud('../audio/now.wav')
 
 		with sr.Microphone() as source:
@@ -28,7 +28,7 @@ class Speech:
 				print "Audio caught, please wait - Processing."
 			else:
 				print "No audio caught."
-				passphraseErr()
+				Speech().passphraseErr()
 
 		try:
 
@@ -40,7 +40,7 @@ class Speech:
 		    	
 		    	if "*" in text:
 		    		print "Bad word detected, please retry."
-		    		passphrase()
+		    		Speech().passphrase()
 		    		break
 
 		        print("Detected speech: " + text.upper() + " with confidence level of: %.1f" % (confidence))
@@ -55,15 +55,13 @@ class Speech:
 		        	Audio().aud('../audio/Retry.wav')
 		        	print 'Retry'
 		        	# execfile('speech.py')
-		        	passphrase()
+		        	Speech().passphrase()
 		        	break
 
 
 		except LookupError, e: 
 			print("Could not understand audio, retry..\n" + str(e))
-			passphraseErr()
+			Speech().passphraseErr()
 
 
-# print "CHECK INTERNET CONNECTION BEFORE BEGINNING."
-# print "PLEASE SPEAK AFTER THE BEEP."
-# listen()
+Speech().passphrase()

@@ -31,56 +31,56 @@ class Verify:
         	print("Directory %s" % dirName) # debug
         	
         	if os.path.isfile(dirName+"/speech.txt"):
-                with open(dirName+"/speech.txt", "r") as speechfile:
+                    with open(dirName+"/speech.txt", "r") as speechfile:
         			theirpass = speechfile.readlines()[0]
 
-                if theirpass == speech:
-                    person = os.path.basename(os.path.normpath(dirName))
-                    pool.append(person)
+                    if theirpass == speech:
+                        person = os.path.basename(os.path.normpath(dirName))
+                        pool.append(person)
 
-                else:
-                    print "No passphrase match found."
-                    Audio().aud('../audio/NoMatch.wav')
-                    execfile('speech.py')
+                    else:
+                        print "No passphrase match found."
+                        Audio().aud('../audio/NoMatch.wav')
+                        execfile('speech.py')
 
 
-        matchpool(pool, folder, speech)
+        Verify().matchpool(pool, folder, speech)
 
 
     def matchpool(self, pool, folder, speech):
-            room = raw_input("Enter name of ROOM (e.g T2.09): ")
+        room = raw_input("Enter name of ROOM (e.g T2.09): ")
 
-            print "Capturing image of your face.. PLEASE KEEP STILL!"
-            Capture().ImageFromCam()
-            matchDist = {}
-            match = None
-    	for x in range(0,len(pool)):
-    		image = '../capturedimg/face1_crop.jpg'
-    		directory = '../usr/'+folder+"/"+str(pool[x])
-    		pyf = PyFaces(image, directory)
+        print "Capturing image of your face.. PLEASE KEEP STILL!"
+        Capture().ImageFromCam()
+        matchDist = {}
+        match = None
+	    
+        for x in range(0,len(pool)):
+            image = '../capturedimg/face1_crop.jpg'
+            directory = '../usr/'+folder+"/"+str(pool[x])
+            pyf = PyFaces(image, directory)
 
-    		dist, match = pyf.match()
+            dist, match = pyf.match()
 
-    		# print 'Matches = ' + str(match) 
-    		# print 'Distance = ' + str(dist)
+		# print 'Matches = ' + str(match) 
+		# print 'Distance = ' + str(dist)
 
-    		if match is not None:
-    			print '\nThe image "%s" matches "%s" with a distance of "%s"\n' % \
-    							(image, match, dist)
-                            matchDist[str(pool[x])] = dist
+            if match is not None:
+                print '\nThe image "%s" matches "%s" with a distance of "%s"\n' % (image, match, dist)
+                matchDist[str(pool[x])] = dist
 
-    		else:
-    			print 'No image match.\n'
-                            matchDist[str(pool[x])] = 100
-                            Audio().aud('../audio/NoMatch.wav')
+            else:
+                print 'No image match.\n'
+                matchDist[str(pool[x])] = 100
+                Audio().aud('../audio/NoMatch.wav')
 
-    		#print pool[x] # debug
-            entryPerson =  min(matchDist, key=matchDist.get)
-            names = entryPerson.split('_')
-            print "chosen is " + names[1],names[0] + match
-            cb = database.database()
-            cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
-            sys.exit()
+		#print pool[x] # debug
+        entryPerson =  min(matchDist, key=matchDist.get)
+        names = entryPerson.split('_')
+        print "chosen is " + names[1],names[0] + match
+        cb = database.database()
+        cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
+        sys.exit()
 
 
-#verification("spock") # debug
+#Verify().verification("spock") # debug
