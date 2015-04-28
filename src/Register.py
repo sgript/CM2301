@@ -48,6 +48,7 @@ def UserInput(): # Take user input
 		else:
 			print "Found name: " + str(name)
 			f.write(str(passphrase)+"\n") # MOVE TO ELSE NOW
+			print "Creating user folder.."
 			CreateFolder(name, passphrase)
 			break			
 
@@ -61,6 +62,7 @@ def CreateFolder(name, passphrase):
 		with open(path+"/speech.txt", "w+") as theirfile: # Then save a personal record of their passphrase in their folder
 				theirfile.write(str(passphrase))
 
+	print "User folder created!\nStarting face registration - Please keep still!"
 	ImageFromCam(path)
 
 def ImageFromCam(userpath):
@@ -127,8 +129,8 @@ def ImageFromCam(userpath):
 					print "Captured"
 					Start_Crop(userpath, capNumb)
 					os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, capNumb, userpath[3:8], userpath[9:]))
-					print "userpath is " + userpath
-					print "userpath[3:8] is " + userpath[3:8]
+					# print "userpath is " + userpath
+					# print "userpath[3:8] is " + userpath[3:8]
 
 				except Exception:
 					print Exception
@@ -152,6 +154,7 @@ def ImageFromCam(userpath):
 	print "userpath[:8] = " + userpath[:8]
 	print "userpath[3:8] = " + userpath[3:8]
 	print "Captured " + str(capNumb-1) + " images!" 
+	print "FINISHED"
 	cap.release()
 	cv.destroyAllWindows()
 	#Start_Crop(userpath)

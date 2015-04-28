@@ -103,4 +103,3 @@ def Start_Crop(folder, picnum):
         reg = "face0|[1-9]\d{0,2}?[^_]jpg"
         if re.search(str(reg),f):
             os.remove(os.path.join(folder,f))   
-    print "Done!"
