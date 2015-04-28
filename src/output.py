@@ -10,6 +10,7 @@
 from PyQt4 import QtCore, QtGui
 import sys
 import database
+#import register_new
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -29,6 +30,10 @@ class Ui_MainWindow(QtGui.QMainWindow):
     def __init__(self,parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.setupUi(self)
+
+    def click(self):
+        print "click"
+
     def setupUi(self, MainWindow):
         db = database.database()
         roomid,rooms = db.get_rooms()
@@ -42,6 +47,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.pushButton = QtGui.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(260, 330, 94, 27))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.pushButton.clicked.connect(self.click)
         self.comboBox = QtGui.QComboBox(self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(260, 260, 83, 25))
         self.comboBox.setObjectName(_fromUtf8("comboBox"))
