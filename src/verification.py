@@ -47,7 +47,7 @@ def verification(speech, room = 1):
 
 
 def matchpool(pool, folder, speech, room):
-        print "Capturing image of your face.. Please stay still!"
+        print "Capturing image of your face.. PLEASE KEEP STILL!"
         ImageFromCam()
         matchDist = {}
         match = None
