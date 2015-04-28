@@ -77,6 +77,8 @@ def ImageFromCam(userpath):
 	capNumb = 0
 	os.system('rsync --recursive %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath, userpath[3:8]))
 
+	eyes = None
+	found = 0
 	while True:
 		# Capture frame-by-frame
 		ret, frame = cap.read()
@@ -84,31 +86,33 @@ def ImageFromCam(userpath):
 
 		Faces = Face_Cascade.detectMultiScale(Gray, scaleFactor = 1.1, minNeighbors = 5, minSize = (30, 30), flags = cv.cv.CV_HAAR_SCALE_IMAGE)
 		#print Faces
-		eyes = None
 			# Draw a rectangle around the faces
 		for (x, y, w, h) in Faces: # To draw rectangle for face
-			#cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-			# For now no rectangles around the face, already checking for faults in real-time
+			if not found:
+				cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+				# For now no rectangles around the face, already checking for faults in real-time
 
-			roi_gray = Gray[y:y+h, x:x+w]
-			roi_color = frame[y:y+h, x:x+w]
-			eyes = Eye_Cascade.detectMultiScale(roi_gray)
+				roi_gray = Gray[y:y+h, x:x+w]
+				roi_color = frame[y:y+h, x:x+w]
+				eyes = Eye_Cascade.detectMultiScale(roi_gray)
 
-			# Don't need to draw rectangle around the eyes
-			# for (ex,ey,ew,eh) in eyes:
-			# 	cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
+				# Don't need to draw rectangle around the eyes
+				for (ex,ey,ew,eh) in eyes:
+					cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
 
 
 		cv.imshow('Webcam - Active (Press Q to finish, C to capture)', frame)
 
 		
-		found = 0
+		msg = ""
 		if not isinstance(Faces, tuple) and not isinstance(eyes, tuple):	
 			found = 1
+			msg = "Facial features found!"
 		else:
 			found = 0
+			msg = "Facial features NOT found!"
 
-		print found
+		print msg
 
 		path = '../usr/'+str(userpath)+"/"
 		fname = 'face'

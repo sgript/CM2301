@@ -13,7 +13,12 @@ while(cont):
 
 	try:
 		saidWord = r.recognize(audio)
-		print("You said " + saidWord)    # recognize speech using Google $
+		if "*" in saidWord:
+			print("Bad word detected, retry!")
+			execfile('speech.py')
+		else:
+			print("You said " + saidWord)    # recognize speech using Google $
+
 
 		if saidWord == "entry":
 			print("User asked for entry, initialising..")
