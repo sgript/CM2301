@@ -13,71 +13,72 @@ from audio import Audio
 
 # NOTE NEED TO ADD GUI INPUT HERE FOR CHOSEN ROOM
 
-def verification(speech, room = 1):	
-    folder = speech[:1]
+class Verify:
+    def verification(self, speech, room = 1):	
+        folder = speech[:1]
 
 
-    print "speech : " + folder # debug
+        print "speech : " + folder # debug
 
-    direc = "../usr/"+folder
-    os.system("rsync c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s/ direc" % speech[:1])
-    print direc # debug
+        direc = "../usr/"+folder
+        os.system("rsync c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s/ direc" % speech[:1])
+        print direc # debug
 
-    rootdir = direc
+        rootdir = direc
 
-    pool = [] # of people with same passphrases
-    for dirName, subdirList, fileList in os.walk(rootdir, topdown=True):
-    	print("Directory %s" % dirName) # debug
-    	
-    	if os.path.isfile(dirName+"/speech.txt"):
-            with open(dirName+"/speech.txt", "r") as speechfile:
-    			theirpass = speechfile.readlines()[0]
+        pool = [] # of people with same passphrases
+        for dirName, subdirList, fileList in os.walk(rootdir, topdown=True):
+        	print("Directory %s" % dirName) # debug
+        	
+        	if os.path.isfile(dirName+"/speech.txt"):
+                with open(dirName+"/speech.txt", "r") as speechfile:
+        			theirpass = speechfile.readlines()[0]
 
-            if theirpass == speech:
-                person = os.path.basename(os.path.normpath(dirName))
-                pool.append(person)
+                if theirpass == speech:
+                    person = os.path.basename(os.path.normpath(dirName))
+                    pool.append(person)
 
-            else:
-                print "No passphrase match found."
-                Audio().aud('../audio/NoMatch.wav')
-                execfile('speech.py')
-
-
-    matchpool(pool, folder, speech, room)
+                else:
+                    print "No passphrase match found."
+                    Audio().aud('../audio/NoMatch.wav')
+                    execfile('speech.py')
 
 
-def matchpool(pool, folder, speech, room):
-        print "Capturing image of your face.. PLEASE KEEP STILL!"
-        ImageFromCam()
-        matchDist = {}
-        match = None
-	for x in range(0,len(pool)):
-		image = '../capturedimg/face1_crop.jpg'
-		directory = '../usr/'+folder+"/"+str(pool[x])
-		pyf = PyFaces(image, directory)
+        matchpool(pool, folder, speech, room)
 
-		dist, match = pyf.match()
 
-		# print 'Matches = ' + str(match) 
-		# print 'Distance = ' + str(dist)
+    def matchpool(self, pool, folder, speech, room):
+            print "Capturing image of your face.. PLEASE KEEP STILL!"
+            Capture().ImageFromCam()
+            matchDist = {}
+            match = None
+    	for x in range(0,len(pool)):
+    		image = '../capturedimg/face1_crop.jpg'
+    		directory = '../usr/'+folder+"/"+str(pool[x])
+    		pyf = PyFaces(image, directory)
 
-		if match is not None:
-			print '\nThe image "%s" matches "%s" with a distance of "%s"\n' % \
-							(image, match, dist)
-                        matchDist[str(pool[x])] = dist
+    		dist, match = pyf.match()
 
-		else:
-			print 'No image match.\n'
-                        matchDist[str(pool[x])] = 100
-                        Audio().aud('../audio/NoMatch.wav')
+    		# print 'Matches = ' + str(match) 
+    		# print 'Distance = ' + str(dist)
 
-		#print pool[x] # debug
-        entryPerson =  min(matchDist, key=matchDist.get)
-        names = entryPerson.split('_')
-        print "chosen is " + names[1],names[0] + match
-        cb = database.database()
-        cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
-        sys.exit()
+    		if match is not None:
+    			print '\nThe image "%s" matches "%s" with a distance of "%s"\n' % \
+    							(image, match, dist)
+                            matchDist[str(pool[x])] = dist
+
+    		else:
+    			print 'No image match.\n'
+                            matchDist[str(pool[x])] = 100
+                            Audio().aud('../audio/NoMatch.wav')
+
+    		#print pool[x] # debug
+            entryPerson =  min(matchDist, key=matchDist.get)
+            names = entryPerson.split('_')
+            print "chosen is " + names[1],names[0] + match
+            cb = database.database()
+            cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
+            sys.exit()
 
 
 #verification("spock") # debug
