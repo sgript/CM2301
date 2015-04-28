@@ -63,6 +63,12 @@ def CreateFolder(name, passphrase):
 				theirfile.write(str(passphrase))
 
 	print "User folder created!\nStarting face registration - Please keep still!"
+	
+	for x in range(4,-1,-1):
+		time.sleep(1)
+		print "Capturing in.." + str(x+1)
+
+	print "Capturing now - Please keep still, whilst facing the camera!"
 	ImageFromCam(path)
 
 def ImageFromCam(userpath):
@@ -82,6 +88,7 @@ def ImageFromCam(userpath):
 	eyes = None
 	found = 0
 	while True:
+
 		# Capture frame-by-frame
 		ret, frame = cap.read()
 		Gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
@@ -126,6 +133,7 @@ def ImageFromCam(userpath):
 		if key:
 			if found:
 				try:
+					# time.sleep(1)
 					cv.imwrite(path+fname+str(capNumb)+ext, frame)
 					print "Captured"
 					#Start_Crop(userpath, capNumb)
@@ -157,7 +165,6 @@ def ImageFromCam(userpath):
 	print "Syncing local directory to remote - This may take a while"
 	for x in range(0,6):
 		Start_Crop(userpath, x)
-		print "rsyncing"
 		os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, x, userpath[3:8], userpath[9:]))
 	os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, userpath[3:8], userpath[9:]))
 	print "Sync complete.\n"
