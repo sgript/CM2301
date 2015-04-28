@@ -1,10 +1,9 @@
 '''
-This file will open the webcam up, then extract the image, this image then will be cropped
-so that it only shows the face of the person, which can then later be compared.
+This file is separate to the main loop of the program, this is simply to register faces to the system.
+Saves file to webserver and local directory etc, with cropped out faces.
 
-Phase I - Capture image
+Phase 0
 '''
-
 
 import sys
 import mmap
@@ -88,17 +87,17 @@ def ImageFromCam(userpath):
 		#print Faces
 			# Draw a rectangle around the faces
 		for (x, y, w, h) in Faces: # To draw rectangle for face
-			if not found:
-				cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-				# For now no rectangles around the face, already checking for faults in real-time
+			
+			#cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+			# For now no rectangles around the face, already checking for faults in real-time
 
-				roi_gray = Gray[y:y+h, x:x+w]
-				roi_color = frame[y:y+h, x:x+w]
-				eyes = Eye_Cascade.detectMultiScale(roi_gray)
+			roi_gray = Gray[y:y+h, x:x+w]
+			#roi_color = frame[y:y+h, x:x+w]
+			eyes = Eye_Cascade.detectMultiScale(roi_gray)
 
-				# Don't need to draw rectangle around the eyes
-				for (ex,ey,ew,eh) in eyes:
-					cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
+			# Don't need to draw rectangle around the eyes
+			#for (ex,ey,ew,eh) in eyes:
+				#cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
 
 
 		cv.imshow('Webcam - Active (Press Q to finish, C to capture)', frame)

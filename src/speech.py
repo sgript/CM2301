@@ -1,19 +1,33 @@
+'''
+Users passphrase will be detected here and taken onwards to be matched and their face captured.
+
+Phase I - Detect speech
+'''
+
 import speech_recognition as sr
 from verification import verification
 from audio import Audio
-import math
 
-def checkspeech():
+def listenError():
+	Audio().aud('../audio/NotUnderstood.wav')
+	listen()
+
+
+def listen():
 	r = sr.Recognizer()
-	print 'Speak now.'
 	Audio().aud('../audio/Speak.wav')
-	with sr.Microphone() as source:
-		audio = r.adjust_for_ambient_noise(source, duration = 1)
-		audio = r.dynamic_energy_threshold = True
-		audio = r.listen(source)
+	print 'Please say your chosen passphrase AFTER the beep.'
+	Audio().aud('../audio/now.wav')
 
-		#print("You said " + r.recognize(audio))
-	
+	with sr.Microphone() as source:
+		#audio = r.adjust_for_ambient_noise(source, duration = 1)
+		#audio = r.dynamic_energy_threshold = True
+		audio = r.listen(source)	
+		if audio:
+			print "Audio caught, please wait - Processing."
+		else:
+			print "No audio caught."
+			listenError()
 
 	try:
 
@@ -21,12 +35,17 @@ def checkspeech():
 	    print("Possible transcriptions:")
 	    for prediction in list:
 	    	text = prediction["text"]
-	    	confidence = prediction["confidence"]*100
-	    	confidence = math.ceil(confidence)
-	        print(" " + text + " (" + str(confidence) + "%)")
+	    	confidence = prediction["confidence"]*100.0
+	    	
+	    	if "*" in text:
+	    		print "Bad word detected, please retry."
+	    		listen()
+	    		break
 
-	        if confidence > 80:
-	        	print "matched " + text
+	        print("Detected speech: " + text.upper() + " with confidence level of: %.1f" % (confidence))
+
+	        if confidence > 51:
+	        	print "Matched " + text
 	        	verification(str(text.lower()))
 	        	break
 	        	
@@ -39,11 +58,9 @@ def checkspeech():
 
 
 	except LookupError, e: 
-		Audio().aud('../audio/NotUnderstood.wav')
-		print("Could not understand audio, retry.." + str(e))
-		execfile('speech.py')
+		print("Could not understand audio, retry..\n" + str(e))
+		listenError()
 
-
-checkspeech()
-	 
-
+print "CHECK INTERNET CONNECTION BEFORE BEGINNING."
+print "PLEASE SPEAK AFTER THE BEEP."
+listen()

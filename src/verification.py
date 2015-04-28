@@ -36,10 +36,8 @@ def verification(speech, room = 1):
                 Audio().aud('../audio/NoMatch.wav')
                 execfile('speech.py')
 
+
     matchpool(pool, folder, speech, room)
-
-
-    				
 
 
 def matchpool(pool, folder, speech, room):

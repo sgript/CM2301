@@ -2,7 +2,6 @@ import pyaudio
 import wave
 import sys
 
-
 class Audio:
     def __init__(self):
         self.name = ""

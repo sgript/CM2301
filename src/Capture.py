@@ -1,11 +1,9 @@
 '''
 This file will open the webcam up, then extract the image, this image then will be cropped
-so that it only shows the face of the person, which can then later be compared.
+so that it only shows the face of the person, which can then later be compared to REGISTERED images.
 
-Phase I - Capture image
+Phase II - Capture image
 '''
-
-__author__ = "shazaibahmad"
 
 import time, sys
 import cv2 as cv
@@ -34,16 +32,15 @@ def ImageFromCam():
 	    
 	    # Draw a rectangle around the faces
 	    for (x, y, w, h) in Faces: # To draw rectangle for face
-	    	if not found:
-		        cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
-		        # For now no rectangles around the face, already checking for faults in real-time
+	        #cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+	        # For now no rectangles around the face, already checking for faults in real-time
 
-		        roi_gray = Gray[y:y+h, x:x+w]
-		        roi_color = frame[y:y+h, x:x+w] # Unused for now
-		        eyes = Eye_Cascade.detectMultiScale(roi_gray)
+	        roi_gray = Gray[y:y+h, x:x+w]
+	        #roi_color = frame[y:y+h, x:x+w] # Unused for now
+	        eyes = Eye_Cascade.detectMultiScale(roi_gray)
 
-		        for (ex,ey,ew,eh) in eyes:
-		        	cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
+	        #for (ex,ey,ew,eh) in eyes:
+	        #	cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
 
 	    # Display the resulting frame
 	    cv.imshow('Webcam - Active (Press Q to finish) - Auto capture', frame)
