@@ -10,7 +10,7 @@ import mmap
 import glob, os 
 import cv2 as cv
 from dir import alphFolder
-from Crop import Start_Crop
+from Crop import Start_Crop, clean
 import time
 import re
 
@@ -25,6 +25,7 @@ def UserInput(): # Take user input
 	name = name.lower()
 	
 	f = open('../passphrases.txt', 'a+')
+	print "rsyncing.."
 	os.system("rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/" % (passphrase[:1]))
 
 	foldercheck = 1;
@@ -76,6 +77,7 @@ def ImageFromCam(userpath):
 	Eye_Cascade = cv.CascadeClassifier('../cv/haarcascade_eye.xml') # Later may add eyes.
 
 	capNumb = 0
+	print "rsyncing.."
 	os.system('rsync --recursive %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (userpath, userpath[3:8]))
 
 	eyes = None
@@ -128,6 +130,7 @@ def ImageFromCam(userpath):
 					cv.imwrite(path+fname+str(capNumb)+ext, frame)
 					print "Captured"
 					Start_Crop(userpath, capNumb)
+					print "rsyncing.."
 					os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, capNumb, userpath[3:8], userpath[9:]))
 					# print "userpath is " + userpath
 					# print "userpath[3:8] is " + userpath[3:8]
@@ -136,6 +139,7 @@ def ImageFromCam(userpath):
 					print Exception
 						
 				capNumb+=1	
+				print "Please wait.. Still capturing."
 
 				if capNumb == 6:
 					break # from while loop
@@ -148,12 +152,10 @@ def ImageFromCam(userpath):
 			print "Exiting.."
 			sys.exit(0)
 
-
+	print "rsyncing.."
 	os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (userpath, userpath[3:8], userpath[9:]))
-	print "userpath = " + userpath
-	print "userpath[:8] = " + userpath[:8]
-	print "userpath[3:8] = " + userpath[3:8]
-	print "Captured " + str(capNumb-1) + " images!" 
+	clean(userpath)
+	print "User's path is: " + userpath
 	print "FINISHED"
 	cap.release()
 	cv.destroyAllWindows()

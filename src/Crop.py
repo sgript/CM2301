@@ -94,11 +94,12 @@ def Crop_Face(Img_Pattern, Box_Scale = 1):
 def Start_Crop(folder, picnum):
     #Crop_Face(folder+"/face.jpg", Box_Scale = 1)
 
-    print folder+'/face'+str(picnum)+'.jpg'
+    # print folder+'/face'+str(picnum)+'.jpg'
     Crop_Face(folder+'/face'+str(picnum)+'.jpg', Box_Scale = 1)
 
-    
-    print "Cleaning up directory..."
+
+def clean(folder):    
+    print "Cleaning up user folder..."
     for f in os.listdir(folder+"/"):
         reg = "face0|[1-9]\d{0,2}?[^_]jpg"
         if re.search(str(reg),f):
