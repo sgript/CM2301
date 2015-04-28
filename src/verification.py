@@ -14,7 +14,7 @@ from audio import Audio
 # NOTE NEED TO ADD GUI INPUT HERE FOR CHOSEN ROOM
 
 class Verify:
-    def verification(self, speech, room = 1):	
+    def verification(self, speech):	
         folder = speech[:1]
 
 
@@ -44,10 +44,12 @@ class Verify:
                     execfile('speech.py')
 
 
-        matchpool(pool, folder, speech, room)
+        matchpool(pool, folder, speech)
 
 
-    def matchpool(self, pool, folder, speech, room):
+    def matchpool(self, pool, folder, speech):
+            room = raw_input("Enter name of ROOM (e.g T2.09): ")
+
             print "Capturing image of your face.. PLEASE KEEP STILL!"
             Capture().ImageFromCam()
             matchDist = {}
