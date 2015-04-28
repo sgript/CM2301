@@ -1,3 +1,7 @@
+'''
+Central file to handle matching using pyfaces, folder directories and syncing to database module
+
+'''
 
 import os
 from pyfaces import *
@@ -6,6 +10,8 @@ from Capture import *
 import database
 from audio import Audio
 
+
+# NOTE NEED TO ADD GUI INPUT HERE FOR CHOSEN ROOM
 
 def verification(speech, room = 1):	
     folder = speech[:1]
