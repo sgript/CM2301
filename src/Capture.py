@@ -77,9 +77,10 @@ def ImageFromCam():
 			print "Exiting.."
 			sys.exit(0)
 	
-	clean('../capturedimg')
+
 	cap.release()
 	cv.destroyAllWindows()
+	clean('../capturedimg')
 
 #ImageFromCam() # COMMENT THIS LATER
 

@@ -151,6 +151,8 @@ def ImageFromCam(userpath):
 			print "Exiting.."
 			sys.exit(0)
 
+	cap.release()
+	cv.destroyAllWindows()
 	print "All captured, you may rest now."
 	print "Syncing local directory to remote - This may take a while"
 	for x in range(0,6):
@@ -163,8 +165,6 @@ def ImageFromCam(userpath):
 	clean(userpath)
 	print "User's path is: " + userpath
 	print "FINISHED\n"
-	cap.release()
-	cv.destroyAllWindows()
 	#Start_Crop(userpath)
 
 
