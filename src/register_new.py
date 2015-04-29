@@ -156,6 +156,6 @@ if __name__ == '__main__':
     try:
         register = Register("firstname", "lastname", "passphrase", "group", "room")
         register.folderCheck("name", "passphrase")
-        register.capImg()
+        register.capImg("userpath")
     except (Exception) as err:
         print err
