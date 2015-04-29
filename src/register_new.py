@@ -21,13 +21,9 @@ class Register(object):
 
     def submit(self, imgnum):
 
-        try:
-            subprocess.call('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]), shell=True)
-            #os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]))
-        except Exception:
-            print "Could not connect to remote server, skipping."
-            pass
-        
+        subprocess.call('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]), shell=True)
+        #os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]))
+
         ## not working
         #db = database()
         #db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
@@ -44,14 +40,8 @@ class Register(object):
 
 
         print "Initiating remote sync"
-
-        try:
-            subprocess.call('rsync --recursive %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (self.userpath, self.userpath[3:8]), shell=True)
-            #os.system('rsync --recursive %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (self.userpath, self.userpath[3:8]))
-        except Exception:
-            print "Could not connect to remote server, skipping."
-            pass
-
+        subprocess.call('rsync --recursive ../usr/ c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/', shell=True)
+        #os.system('rsync --recursive %s c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/' % (self.userpath, self.userpath[3:8]))
         print "Done."
 
         print "User folder created!\nStarting face registration - Please keep still!"
@@ -65,17 +55,10 @@ class Register(object):
     def folderCheck(self):
         
         f = open('../passphrases.txt', 'a+')
+        
         print "Pulling relevant files from remote server"
-
-
-        try:
-
-            subprocess.call('rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/' % (self.passphrase[:1]), shell=True)            
-            # os.system("rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/" % (self.passphrase[:1]))
-        except (Exception) as err:
-            print "Could not connect to remote server, skipping. " + str(err)
-            pass
-
+        subprocess.call('rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/' % (self.passphrase[:1]), shell=True)            
+        # os.system("rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/" % (self.passphrase[:1]))
         print "Done."
 
         foldercheck = 1
@@ -182,13 +165,8 @@ class Register(object):
             Start_Crop(self.userpath, x)
             register.submit(x)
 
-        try:
             subprocess.call('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]), shell=True)
             #os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]))
-        
-        except Exception:
-            print "Could not connect to remote server, skipping."
-            pass
 
         print "Sync complete.\n"
 
