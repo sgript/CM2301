@@ -52,7 +52,7 @@ class Speech:
 		        	
 
 		        else:
-		        	Audio().aud('../audio/Retry.wav')
+		        	#Audio().aud('../audio/Retry.wav')
 		        	print 'Retry'
 		        	# execfile('speech.py')
 		        	Speech().passphrase()

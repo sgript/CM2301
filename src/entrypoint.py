@@ -26,7 +26,7 @@ class Entry:
                 print "Audio caught, please wait - Processing."
             else:
                 print "No audio caught."
-                entry.listenError()
+                # entry.listenError()
 
 
         cont = 1
@@ -52,12 +52,12 @@ class Entry:
                     Speech().passphrase()
                 else:
                     print "You did not ask for entry. Retry.."
-                    Audio().aud('../audio/Retry.wav')
+                    # Audio().aud('../audio/Retry.wav')
                     entry.listen()
                     break
 
             except LookupError:
-                entry.listenError()
+                print "Input not understood."
                 break
 
 
