@@ -49,7 +49,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
             msgBox.exec_()
 
     def setupUi(self, MainWindow):
-        db = database.database()
+        db = database()
         roomid,rooms = db.get_rooms()
         groupid,groups = db.get_groups()
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
