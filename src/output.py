@@ -10,7 +10,7 @@
 from PyQt4 import QtCore, QtGui
 import sys
 import database
-#import register_new
+import register_new
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -32,7 +32,21 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.setupUi(self)
 
     def click(self):
-        print "click"
+        if len(self.lineEdit.text()) == 0 or len(self.lineEdit_2.text()) == 0 or len(self.lineEdit_3.text()) == 0:
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText("Some fields have not been filled out!")
+            msgBox.exec_()
+        elif (str(self.lineEdit_3.text()).isdigit()):
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText("Numbers not allowed in passphrase!")
+            msgBox.exec_()
+        else:
+            r = register_new.Register(str(self.lineEdit.text()), str(self.lineEdit_2.text()), str(self.lineEdit_3.text()), self.comboBox.currentText(), self.comboBox_2.currentText())
+            r.folderCheck()
+            r.capImg()
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText("Successfully registered user.")
+            msgBox.exec_()
 
     def setupUi(self, MainWindow):
         db = database.database()
