@@ -9,7 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import sys
-import database
+from database import database
 import register_new
 
 try:
