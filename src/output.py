@@ -41,9 +41,9 @@ class Ui_MainWindow(QtGui.QMainWindow):
             msgBox.setText("Numbers not allowed in passphrase!")
             msgBox.exec_()
         else:
-            r = Register(str(self.lineEdit.text()), str(self.lineEdit_2.text()), str(self.lineEdit_3.text()), self.comboBox.currentText(), self.comboBox_2.currentText())
-            r.folderCheck()
-            r.capImg()
+            register = Register(str(self.lineEdit.text()), str(self.lineEdit_2.text()), str(self.lineEdit_3.text()), self.comboBox.currentText(), self.comboBox_2.currentText())
+            register.folderCheck()
+            register.capImg()
             msgBox = QtGui.QMessageBox()
             msgBox.setText("Successfully registered user.")
             msgBox.exec_()

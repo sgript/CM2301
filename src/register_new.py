@@ -25,8 +25,8 @@ class Register(object):
         #os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]))
 
         ## not working
-        #db = database()
-        #db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
+        db = database()
+        db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
 
 
     def CreateFolder(self):
@@ -83,7 +83,7 @@ class Register(object):
                 self.userpath = "../usr/"+self.passphrase[:1]+"/"+self.name
                 f.write(str(self.passphrase)+"\n") # MOVE TO ELSE NOW
                 print "Creating user folder.."
-                register.CreateFolder()
+                self.CreateFolder()
                 break   
         
     def capImg(self):
@@ -163,7 +163,7 @@ class Register(object):
         print "Syncing local directory to remote - This may take a while"
         for x in range(0,6):
             Start_Crop(self.userpath, x)
-            register.submit(x)
+            self.submit(x)
 
             subprocess.call('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]), shell=True)
             #os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]))

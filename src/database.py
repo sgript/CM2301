@@ -14,7 +14,7 @@ class database(object):
 
     def add_user(self, path_to_face, passphrase, first_name, last_name, groups, rooms):
         crs = self.con.cursor()
-        ids,names = get_rooms_from_groups()
+        ids,names = self.get_rooms_from_groups()
         query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms) VALUES('%s','%s','%s','%s','%s','%s');" % (first_name,last_name,path_to_face,passphrase,(rooms+str(names.strip('[]'))))
         crs.execute(query)
         query = "SELECT user_id FROM user_records WHERE photo_file='%s' AND audio_file='%s';" % (path_to_face, passphrase)
