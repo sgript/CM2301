@@ -10,7 +10,7 @@
 from PyQt4 import QtCore, QtGui
 import sys
 from database import *
-import register_new
+from register_new import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -41,7 +41,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
             msgBox.setText("Numbers not allowed in passphrase!")
             msgBox.exec_()
         else:
-            r = register_new.Register(str(self.lineEdit.text()), str(self.lineEdit_2.text()), str(self.lineEdit_3.text()), self.comboBox.currentText(), self.comboBox_2.currentText())
+            r = Register(str(self.lineEdit.text()), str(self.lineEdit_2.text()), str(self.lineEdit_3.text()), self.comboBox.currentText(), self.comboBox_2.currentText())
             r.folderCheck()
             r.capImg()
             msgBox = QtGui.QMessageBox()
