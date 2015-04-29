@@ -24,10 +24,6 @@ class Register(object):
         subprocess.call('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]), shell=True)
         #os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]))
 
-        ## not working
-        db = database()
-        db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
-
 
     def CreateFolder(self):
         path = "../usr/"+self.passphrase[:1]+"/"+self.name
@@ -170,12 +166,18 @@ class Register(object):
 
         print "Sync complete.\n"
 
+        self.databaseSync()
         clean(self.userpath)
         print "User's path is: " + self.userpath
         print "FINISHED\n"
         #Start_Crop(userpath)
 
 
+    def databaseSync(self):
+        db = database()
+        db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
+        db.exit()
+        
     #ImageFromCam(path)
 if __name__ == '__main__':
     try:
