@@ -14,16 +14,14 @@ class database(object):
 
     def add_user(self, path_to_face, passphrase, first_name, last_name, groups, rooms):
         crs = self.con.cursor()
-        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms, permitted_groups) VALUES('%s','%s','%s','%s','%s','%s');" % (first_name,last_name,path_to_face,passphrase,rooms,groups)
+        ids,names = get_rooms_from_groups()
+        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms) VALUES('%s','%s','%s','%s','%s','%s');" % (first_name,last_name,path_to_face,passphrase,(rooms+str(names.strip('[]'))))
         crs.execute(query)
         query = "SELECT user_id FROM user_records WHERE photo_file='%s' AND audio_file='%s';" % (path_to_face, passphrase)
         user_id = crs.execute(query)
         crs.execute("INSERT INTO user_locate(user_id, forename, surname, room, access_time) VALUES ('%d', '%s', '%s', 0, 0);" % (user_id,first_name,last_name))
 
 
-    def update_user(self, user_id):
-        print "hello"
-        
     def update_user(self, user_id, room=1):
         current_time = time.strftime("%H:%M:%S")
         crs = self.con.cursor()
@@ -60,6 +58,21 @@ class database(object):
     def get_rooms(self):
         crs = self.con.cursor()
         rooms = "SELECT DISTINCT room_name,room_id FROM room_lookup WHERE 1"
+        row= crs.execute(rooms)
+        rows = crs.fetchall()
+        i = 0
+        room_id = []
+        room_name = []
+        for row in rows:
+            print row
+            room_name.append(row[0])
+            room_id.append(row[1])
+            i+=1
+        return room_id,room_name
+
+    def get_rooms_from_groups(self):
+        crs = self.con.cursor()
+        rooms = "SELECT DISTINCT room_lookup.room_name,room_lookup.room_id FROM room_lookup INNER JOIN user_groups WHERE user_groups.group_name = '%s'"
         row= crs.execute(rooms)
         rows = crs.fetchall()
         i = 0
