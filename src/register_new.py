@@ -5,6 +5,7 @@ from Crop import Start_Crop, clean
 from database import *
 import re
 import subprocess
+from subprocess import check_call
 
 class Register(object):
     def __init__(self, firstname, lastname, passphrase, group, room):
@@ -66,10 +67,13 @@ class Register(object):
         f = open('../passphrases.txt', 'a+')
         print "Pulling relevant files from remote server"
 
+
         try:
-            os.system("rsync -chavzP --stats c1327650@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/" % (self.passphrase[:1]))
-        except Exception:
-            print "Could not connect to remote server, skipping."
+
+            subprocess.call('rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/' % (self.passphrase[:1]), shell=True)            
+            # os.system("rsync -chavzP --stats c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/usr/%s ../usr/" % (self.passphrase[:1]))
+        except (Exception) as err:
+            print "Could not connect to remote server, skipping. " + str(err)
             pass
 
         print "Done."
