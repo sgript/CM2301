@@ -15,6 +15,7 @@ class Speech:
 
 
 	def passphrase(self):
+		print "in speech"
 		r = sr.Recognizer()
 		print 'Please say your chosen passphrase AFTER the beep.'
 		Audio().aud('../audio/Speak.wav')
@@ -63,5 +64,3 @@ class Speech:
 			print("Could not understand audio, retry..\n" + str(e))
 			Speech().passphraseErr()
 
-
-Speech().passphrase()

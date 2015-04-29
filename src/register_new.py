@@ -49,7 +49,7 @@ class Register(object):
         print "Capturing now - Please keep still, whilst facing the camera!"
 
     def folderCheck(self):
-        
+
         f = open('../passphrases.txt', 'a+')
         
         print "Pulling relevant files from remote server"
@@ -177,7 +177,7 @@ class Register(object):
         db = database()
         db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
         db.exit()
-        
+
     #ImageFromCam(path)
 if __name__ == '__main__':
     try:
