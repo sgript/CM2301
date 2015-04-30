@@ -10,7 +10,7 @@
 from PyQt4 import QtCore, QtGui
 import sys
 from database import *
-from register_new import *
+from Register import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
