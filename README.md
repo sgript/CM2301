@@ -34,15 +34,17 @@
 * PyQt 
 * [Library for Google's Speech Recognition API](https://pypi.python.org/pypi/SpeechRecognition/)
 
-**To-do:**
+<!-- **To-do:**
 * Finish GUI / Polish
 * Ensure user exists in the database (as well as being "active") before letting them in
 * Test for compatability with administrator portal
 * Check user's status is "active" in the system
 * Read only for speech.txt(?)
-* Program to executables and package files to port dependencies 
+* Program to executables and package files to port dependencies  -->
 
-
+**Credits:**
+* [Pyfaces by omab](https://github.com/omab/faces/tree/master/pyfaces)
+* [FaceDetectionCrop by GradyD](https://github.com/GradyD/FaceDetectionCrop)
 
 
 
