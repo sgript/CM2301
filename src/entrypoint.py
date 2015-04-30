@@ -16,6 +16,7 @@ class Entry:
         
 
     def listen(self):
+
         r = sr.Recognizer()
         print "Please say Entry AFTER the beep." 
         Audio().aud('../audio/Speak.wav')
@@ -29,7 +30,9 @@ class Entry:
                 # entry.listenError()
 
         while(True): # runs continously, so system hands back to entrypoint when finished
+
             try:
+                saidWord = ""
                 saidWord = r.recognize(audio) # gets recognised word/sentence
                 if "*" in saidWord: # extra censoring of bad words
                     print "Bad word detected, please try."
@@ -54,7 +57,7 @@ class Entry:
 
             except LookupError:
                 print "Input not understood."
-                break
+                entry.listen()
 
 
 if __name__ == '__main__':
