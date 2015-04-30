@@ -16,7 +16,7 @@ class database(object):
         crs = self.con.cursor()
         ids,names = self.get_rooms_from_groups()
 
-        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms, group_id) VALUES('%s','%s','%s','%s','%s, %s');" % (first_name,last_name,path_to_face,passphrase,rooms,groups)
+        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms, group_id) VALUES('%s','%s','%s','%s','%s', '%s');" % (first_name,last_name,path_to_face,passphrase,rooms,groups)
         crs.execute(query)
         query = "SELECT user_id FROM user_records WHERE photo_file='%s' AND audio_file='%s';" % (path_to_face, passphrase)
         user_id = crs.execute(query)
