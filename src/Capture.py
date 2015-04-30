@@ -64,8 +64,7 @@ class Capture:
 		    	if found == 1:
 		    		cv.imwrite('../capturedimg/face1.jpg', frame)
 		    		Start_Crop('../capturedimg', 1)
-		    		print 'rsyncing..'
-		    		# os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg')
+		    		
 		    		break
 
 		    	else:
