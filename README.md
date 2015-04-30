@@ -32,7 +32,7 @@
 * numpy
 * Pillow / PIL
 * PyQt 
-* SpeechRecognition using [Google Speech Recognition API](https://pypi.python.org/pypi/SpeechRecognition/)
+* [Library for Google's Speech Recognition API](https://pypi.python.org/pypi/SpeechRecognition/)
 
 **To-do:**
 * Finish GUI / Polish
