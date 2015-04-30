@@ -50,7 +50,7 @@ class database(object):
 	    group.append(row[1])
 	    i +=1
         print rooms
-        query1 = "SELECT user_groups.room_id, room_lookup.room_name FROM user_groups INNER JOIN room_lookup WHERE user_groups.group_id = '%d';"(group[0])
+        query1 = "SELECT user_groups.room_id, room_lookup.room_name FROM user_groups INNER JOIN room_lookup WHERE user_groups.group_id = '%s';"(group[0])
 	row = crs.execute(query1)
 	rows = crs.fetchall()
 	i = 0
