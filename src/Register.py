@@ -78,6 +78,7 @@ class Register(object):
                 print "Found name: " + str(self.name)
                 self.userpath = "../usr/"+self.passphrase[:1]+"/"+self.name
                 f.write(str(self.passphrase)+"\n") # MOVE TO ELSE NOW
+                subprocess.call('rsync ../passphrases.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/', shell=True) # sync with remote
                 print "Creating user folder.."
                 self.CreateFolder()
                 break   
@@ -161,8 +162,10 @@ class Register(object):
             Start_Crop(self.userpath, x)
             self.submit(x)
 
-            subprocess.call('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]), shell=True)
-            #os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]))
+            
+
+        subprocess.call('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]), shell=True)
+        #os.system('rsync %s/speech.txt c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, self.userpath[3:8], self.userpath[9:]))
 
         print "Sync complete.\n"
 
@@ -175,7 +178,7 @@ class Register(object):
 
     def databaseSync(self):
         db = database()
-	groupid = db.get_group_id_from_name(self.group)
+        groupid = db.get_group_id_from_name(self.group)
         db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, groupid, self.room)
         db.exit()
 

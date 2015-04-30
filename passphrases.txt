@@ -9,3 +9,16 @@ spock
 unmint
 shh
 passphrase
+test
+test
+test
+test
+test
+test
+test
+test
+test
+test
+test
+test
+test

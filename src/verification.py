@@ -82,7 +82,7 @@ class Verify:
         else: # Else if no one was found, goes back to entrypoint.
             print "ERROR - MATCH FAILED: Folder is empty."            
         print '\nFinishing by syncing local capture to remote..' 
-        subprocess.call('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg', shell=True) # sync with remote
+        # subprocess.call('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg', shell=True) # sync with remote
         print 'FINISHED.'
         execfile('entrypoint.py')
 

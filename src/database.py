@@ -23,15 +23,15 @@ class database(object):
         crs.execute("INSERT INTO user_locate(user_id, forename, surname, room, access_time) VALUES ('%d', '%s', '%s', 0, 0);" % (user_id,first_name,last_name))
 
     def get_group_id_from_name(self, group):#retrieves the group ID from the group name
-	crs = self.con.cursor()
-	row = crs.execute("SELECT group_id FROM user_groups WHERE group_name = '%s'" % (group))
-	rows = crs.fetchall()
-	i = 0
-	groupid = []
-	for row in rows:
-	    groupid.append(row[0])
-	    i+=1
-	return groupid
+        crs = self.con.cursor()
+        row = crs.execute("SELECT group_id FROM user_groups WHERE group_name = %s" % (group))
+        rows = crs.fetchall()
+        i = 0
+        groupid = []
+        for row in rows:
+            groupid.append(row[0])
+            i+=1
+        return groupid
 
     def update_user(self, user_id, room=1):#updates location of user in user_locate for the live feed
         current_time = time.strftime("%H:%M:%S")
