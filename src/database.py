@@ -39,7 +39,6 @@ class database(object):
     def verify(self,path_to_face, passphrase, room):#verify a user can access a room
         crs = self.con.cursor()
         query = "SELECT user_records.specified_rooms,user_records.group_id FROM user_records WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
-	query1 = "SELECT user_groups.room_id, room_lookup.room_name FROM user_groups INNER JOIN room_lookup WHERE user_groups.group_id = '%d';"(group[0])
         rooms = []
 	group = []
         print path_to_face+passphrase
@@ -51,6 +50,7 @@ class database(object):
 	    group.append(row[1])
 	    i +=1
         print rooms
+        query1 = "SELECT user_groups.room_id, room_lookup.room_name FROM user_groups INNER JOIN room_lookup WHERE user_groups.group_id = '%d';"(group[0])
 	row = crs.execute(query1)
 	rows = crs.fetchall()
 	i = 0
