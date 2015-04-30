@@ -24,14 +24,12 @@ class database(object):
 
     def get_group_id_from_name(self, group):#retrieves the group ID from the group name
         crs = self.con.cursor()
-        row = crs.execute("SELECT group_id FROM user_groups WHERE group_name = %s" % (group))
+        row = crs.execute("SELECT group_id FROM user_groups WHERE group_name = '%s'" % (group))
         rows = crs.fetchall()
-        i = 0
-        groupid = []
-        for row in rows:
-            groupid.append(row[0])
-            i+=1
-        return groupid
+        print "rows : " + str(rows)
+        groupid = [int(i[0]) for i in rows]
+        print "group is : " + str(groupid[0])
+        return groupid[0]
 
     def update_user(self, user_id, room=1):#updates location of user in user_locate for the live feed
         current_time = time.strftime("%H:%M:%S")
