@@ -79,10 +79,10 @@ class Verify:
             print "\nMATCHED PERSON: " + names[1],names[0] + match # show who matched
             cb = database.database()
             cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room) # verify they're allowed access
-        else: # Else if no one was found, exit.
+        else: # Else if no one was found, goes back to entrypoint.
             print "ERROR - MATCH FAILED: Folder is empty."            
         print '\nFinishing by syncing local capture to remote..' 
         subprocess.call('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg', shell=True) # sync with remote
         print 'FINISHED.'
-        
+        execfile('entrypoint.py')
 

@@ -12,7 +12,7 @@ from speech import Speech
 class Entry:
     def listenError(self):
         Audio().aud('../audio/NotUnderstood.wav')
-        entry.listen()    
+        Entry().listen()    
         
 
     def listen(self):
@@ -29,14 +29,15 @@ class Entry:
                 print "No audio caught."
                 # entry.listenError()
 
-        while(True): # runs continously, so system hands back to entrypoint when finished
-
+        active = 1
+        while(active): # runs continously, so system hands back to entrypoint when finished
+            
             try:
-                saidWord = ""
+                
                 saidWord = r.recognize(audio) # gets recognised word/sentence
                 if "*" in saidWord: # extra censoring of bad words
                     print "Bad word detected, please try."
-                    entry.listen()
+                    Entry().listen()
                     break
 
                 else:
@@ -47,24 +48,19 @@ class Entry:
                     print("User asked for entry, initialising..")
                     time.sleep(0.5)
                     Audio().aud('../audio/crtna.wav') # voiceover of system
-                    
+                    active = 0
                     Speech().passphrase() # passphrase of user is asked
+                    break
                 else:
                     print "You did not ask for entry. Retry.." # otherwise retry
                     # Audio().aud('../audio/Retry.wav')
-                    entry.listen()
+                    Entry().listen()
                     break
 
             except LookupError:
                 print "Input not understood."
-                entry.listen()
+                Entry().listen()
 
-
-if __name__ == '__main__':
-    try:
-        print "ENTRY PROGRAM STARTED TO LISTEN FOR ACCESS REQUESTS."       
-        print "CHECK INTERNET CONNECTION BEFORE BEGINNING.\nPLEASE SPEAK AFTER THE BEEP."       
-        entry = Entry()
-        entry.listen()
-    except (Exception) as err:
-        print err
+print "ENTRY PROGRAM STARTED TO LISTEN FOR ACCESS REQUESTS."       
+print "CHECK INTERNET CONNECTION BEFORE BEGINNING.\nPLEASE SPEAK AFTER THE BEEP."   
+Entry().listen()
