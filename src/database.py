@@ -4,7 +4,7 @@ import time
 
 class database(object):
 
-    def __init__(self):
+    def __init__(self):#initialise database connection
         try:
             self.con = MySQLdb.connect('ephesus.cs.cf.ac.uk' , 'c1312433', 'berlin', 'c1312433')
             print "success"
@@ -12,23 +12,33 @@ class database(object):
             print "Error %d: %s" % (e.args[0], e.args[1])
             sys.exit(1)
 
-    def add_user(self, path_to_face, passphrase, first_name, last_name, groups, rooms):
+    def add_user(self, path_to_face, passphrase, first_name, last_name, groups, rooms):#add user to the database using input args and add to user_locate table
         crs = self.con.cursor()
         ids,names = self.get_rooms_from_groups()
 
-        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms) VALUES('%s','%s','%s','%s','%s');" % (first_name,last_name,path_to_face,passphrase,(rooms+''.join(names)))
+        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms, group_id) VALUES('%s','%s','%s','%s','%s, %s');" % (first_name,last_name,path_to_face,passphrase,rooms,groups)
         crs.execute(query)
         query = "SELECT user_id FROM user_records WHERE photo_file='%s' AND audio_file='%s';" % (path_to_face, passphrase)
         user_id = crs.execute(query)
         crs.execute("INSERT INTO user_locate(user_id, forename, surname, room, access_time) VALUES ('%d', '%s', '%s', 0, 0);" % (user_id,first_name,last_name))
 
+    def get_group_id_from_name(self, group):#retrieves the group ID from the group name
+	crs = self.con.cursor()
+	row = crs.execute("SELECT group_id FROM user_groups WHERE group_name = '%s'" % (group))
+	rows = crs.fetchall()
+	i = 0
+	groupid = []
+	for row in rows:
+	    groupid.append(row[0])
+	    i+=1
+	return groupid
 
-    def update_user(self, user_id, room=1):
+    def update_user(self, user_id, room=1):#updates location of user in user_locate for the live feed
         current_time = time.strftime("%H:%M:%S")
         crs = self.con.cursor()
         crs.execute("UPDATE user_locate SET room='%s', access_time='%s' WHERE user_id='%d';"% (room, current_time, user_id)) 
 
-    def verify(self,path_to_face, passphrase, room):
+    def verify(self,path_to_face, passphrase, room):#verify a user can access a room
         crs = self.con.cursor()
         query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN user_groups WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
         rooms = []
@@ -42,7 +52,7 @@ class database(object):
             print "hi"
             return True
 
-    def get_groups(self):
+    def get_groups(self):#get list of groups for the GUI
         crs = self.con.cursor()
         groups = "SELECT DISTINCT group_name,group_id FROM user_groups WHERE 1"
         row = crs.execute(groups)
@@ -56,7 +66,7 @@ class database(object):
             i+=1
         return group_id,group_name
 
-    def get_rooms(self):
+    def get_rooms(self):#get list of rooms for the GUI
         crs = self.con.cursor()
         rooms = "SELECT DISTINCT room_name,room_id FROM room_lookup WHERE 1"
         row= crs.execute(rooms)
@@ -71,7 +81,7 @@ class database(object):
             i+=1
         return room_id,room_name
 
-    def get_rooms_from_groups(self):
+    def get_rooms_from_groups(self):#get list of rooms which is included in groups
         crs = self.con.cursor()
         rooms = "SELECT DISTINCT room_lookup.room_name,room_lookup.room_id FROM room_lookup INNER JOIN user_groups WHERE user_groups.group_name = '%s'"
         row= crs.execute(rooms)

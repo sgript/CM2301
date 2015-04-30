@@ -8,7 +8,7 @@ import subprocess
 from subprocess import check_call
 
 class Register(object):
-    def __init__(self, firstname, lastname, passphrase, group, room):
+    def __init__(self, firstname, lastname, passphrase, group, room):#initialise class with data from gui
         self.firstname = firstname.lower()
         self.lastname = lastname.lower()
         self.passphrase = passphrase.lower()
@@ -19,13 +19,13 @@ class Register(object):
         self.userpath = ""
         alphFolder()
 
-    def submit(self, imgnum):
+    def submit(self, imgnum):#Upload all pictures to the lapis space
 
         subprocess.call('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]), shell=True)
-        #os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]))
+        #os.system('rsync %s/face%d_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/%s/%s' % (self.userpath, imgnum, self.userpath[3:8], self.userpath[9:]))THIS IS DEPRECATED
 
 
-    def CreateFolder(self):
+    def CreateFolder(self):#Create the necessary folder for the user in the file structure
         path = "../usr/"+self.passphrase[:1]+"/"+self.name
         print path
 
@@ -48,7 +48,7 @@ class Register(object):
 
         print "Capturing now - Please keep still, whilst facing the camera!"
 
-    def folderCheck(self):
+    def folderCheck(self):#check if folder is duplicated, if yes increment number at end to allow people with same name and passphrase
 
         f = open('../passphrases.txt', 'a+')
         
@@ -82,7 +82,7 @@ class Register(object):
                 self.CreateFolder()
                 break   
         
-    def capImg(self):
+    def capImg(self):#code to capture image, detect if face is looking at camera
         cap = cv.VideoCapture(0)
         cap.set(1, 20.0)
         cap.set(3,640)  
@@ -175,7 +175,8 @@ class Register(object):
 
     def databaseSync(self):
         db = database()
-        db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, self.group, self.room)
+	groupid = db.get_group_id_from_name(self.group)
+        db.add_user(self.userpath, self.passphrase, self.firstname, self.lastname, groupid, self.room)
         db.exit()
 
     #ImageFromCam(path)
