@@ -38,17 +38,24 @@ class database(object):
 
     def verify(self,path_to_face, passphrase, room):#verify a user can access a room
         crs = self.con.cursor()
-        query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN ON user_groups.group_id=user_records.group_id WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
+        query = "SELECT user_records.specified_rooms,user_records.group_id FROM user_records WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
+	query = "SELECT user_groups.room_name FROM user_groups WHERE user_groups.group_id = '%d';"(group[0])
         rooms = []
+	group = []
         print path_to_face+passphrase
 	row = crs.execute(query)
 	rows = crs.fetchall()
 	i = 0
 	for row in rows:
 	    rooms.append(row[0])
-	    rooms.append(row[1])
+	    group.append(row[1])
 	    i +=1
         print rooms
+	row = crs.execute(query1)
+	rows = crs.fetchall()
+	i = 0
+	for row in rows:
+	    rooms.append(row[0])
         if room not in rooms:
             print "Not authorised"
             return False
