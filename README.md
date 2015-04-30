@@ -24,6 +24,15 @@
 * All records are rsynced to web server. 
 * Please read terminal outputs when using
 	
+**Dependencies required:**
+* OpenCV
+* PyAudio
+* FLAC
+* MySQLdb
+* numpy
+* Pillow / PIL
+* PyQt 
+* Google Speech Recognition API
 
 **To-do:**
 * Finish GUI / Polish
