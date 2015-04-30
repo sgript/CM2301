@@ -55,7 +55,7 @@ class database(object):
 	rows = crs.fetchall()
 	i = 0
 	for row in rows:
-	    rooms.append(row[0])
+	    rooms.append(row[1])
         if room not in rooms:
             print "Not authorised"
             return False
