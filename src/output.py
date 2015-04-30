@@ -55,7 +55,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         print groupid
         print groups
-        MainWindow.resize(800, 600)
+        MainWindow.resize(400, 400)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.pushButton = QtGui.QPushButton(self.centralwidget)
@@ -102,7 +102,7 @@ class Ui_MainWindow(QtGui.QMainWindow):
         self.label_5.setObjectName(_fromUtf8("label_5"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 400, 23))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
