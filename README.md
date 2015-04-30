@@ -28,7 +28,7 @@
 * OpenCV
 * PyAudio
 * FLAC
-* MySQLdb
+* MySQLdb (OSX users may need mysql-connector-c also, can be obtained through brew)
 * numpy
 * Pillow / PIL
 * PyQt 
