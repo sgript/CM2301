@@ -11,8 +11,6 @@ import database
 from audio import Audio
 
 
-# NOTE NEED TO ADD GUI INPUT HERE FOR CHOSEN ROOM
-
 class Verify:
     def verification(self, speech):	
         folder = speech[:1]
@@ -30,40 +28,40 @@ class Verify:
         for dirName, subdirList, fileList in os.walk(rootdir, topdown=True):
         	print("Directory %s" % dirName) # debug
         	
-        	if os.path.isfile(dirName+"/speech.txt"):
-                    with open(dirName+"/speech.txt", "r") as speechfile:
-        			theirpass = speechfile.readlines()[0]
+        	if os.path.isfile(dirName+"/speech.txt"): # if the file with passphrase in it exists 
+                    with open(dirName+"/speech.txt", "r") as speechfile: # open it
+        			theirpass = speechfile.readlines()[0] 
 
-                    if theirpass == speech:
-                        person = os.path.basename(os.path.normpath(dirName))
-                        pool.append(person)
+                    if theirpass == speech: # if it matches the passphrase user spoke
+                        person = os.path.basename(os.path.normpath(dirName)) 
+                        pool.append(person) # add them to pool of people that could possibly match
 
                     else:
-                        print "No passphrase match found."
+                        print "No passphrase match found." 
                         Audio().aud('../audio/NoMatch.wav')
                         execfile('speech.py')
 
 
-        Verify().matchpool(pool, folder, speech)
+        Verify().matchpool(pool, folder, speech) 
 
 
-    def matchpool(self, pool, folder, speech):
-        room = raw_input("Enter name of ROOM (e.g T2.09): ")
+    def matchpool(self, pool, folder, speech): 
+        room = raw_input("Enter name of ROOM (e.g T2.09): ") # Simple input to see which room they're accessing
 
         print "Capturing image of your face.. PLEASE KEEP STILL!"
-        Capture().ImageFromCam()
+        Capture().ImageFromCam() # Capturing their face begins
         matchDist = {}
         match = None
 	    
-        for x in range(0,len(pool)):
+        for x in range(0,len(pool)): 
             image = '../capturedimg/face1_crop.jpg'
             directory = '../usr/'+folder+"/"+str(pool[x])
-            pyf = PyFaces(image, directory)
+            pyf = PyFaces(image, directory) 
 
-            dist, match = pyf.match()
+            dist, match = pyf.match() # get a match
 
-		# print 'Matches = ' + str(match) 
-		# print 'Distance = ' + str(dist)
+    		# print 'Matches = ' + str(match) 
+    		# print 'Distance = ' + str(dist)
 
             if match is not None:
                 print '\nThe image "%s" matches "%s" with a distance of "%s"\n' % (image, match, dist)
@@ -77,10 +75,11 @@ class Verify:
 		#print pool[x] # debug
         entryPerson =  min(matchDist, key=matchDist.get)
         names = entryPerson.split('_')
-        print "chosen is " + names[1],names[0] + match
+        print "\nMATCHED PERSON: " + names[1],names[0] + match # show who matched
         cb = database.database()
-        cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room)
-        sys.exit()
+        cb.verify("../usr/"+str(speech[:1])+"/"+str(entryPerson),speech,room) # verify they're allowed access
+        print '\nFinishing by syncing local capture to remote..' 
+        os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg') # sync with remote
+        print 'FINISHED.'
+        
 
-
-#Verify().verification("spock") # debug

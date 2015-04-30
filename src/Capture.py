@@ -12,16 +12,16 @@ import os
 
 class Capture:
 	def ImageFromCam(self):
-		cap = cv.VideoCapture(0)
+		cap = cv.VideoCapture(0) # Initial sets for opencv window
 		cap.set(1, 20.0)
 		cap.set(3,640)  
 		cap.set(4,480) 
 
 		 
-		Face_Cascade = cv.CascadeClassifier('../cv/haarcascade_frontalface_default.xml')
-		Eye_Cascade = cv.CascadeClassifier('../cv/haarcascade_eye.xml') # Later may add eyes.
+		Face_Cascade = cv.CascadeClassifier('../cv/haarcascade_frontalface_default.xml') # Classifiers used for face/eyes det
+		Eye_Cascade = cv.CascadeClassifier('../cv/haarcascade_eye.xml') 
 
-		eyes = None
+		eyes = None # Later uses to detect if facing forward
 		found = 0
 		while True:
 		    # Capture frame-by-frame
@@ -33,7 +33,7 @@ class Capture:
 		    
 		    # Draw a rectangle around the faces
 		    for (x, y, w, h) in Faces: # To draw rectangle for face
-		        #cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+		        #cv.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2) # Unused for now
 		        # For now no rectangles around the face, already checking for faults in real-time
 
 		        roi_gray = Gray[y:y+h, x:x+w]
@@ -41,31 +41,31 @@ class Capture:
 		        eyes = Eye_Cascade.detectMultiScale(roi_gray)
 
 		        #for (ex,ey,ew,eh) in eyes:
-		        #	cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
+		        #cv.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,0,255),2)
 
 		    # Display the resulting frame
 		    cv.imshow('Webcam - Active (Press Q to finish) - Auto capture', frame)
 
 
 		    msg = ""
-		    if not isinstance(Faces, tuple) and not isinstance(eyes, tuple):
+		    if not isinstance(Faces, tuple) and not isinstance(eyes, tuple): # If eyes/face values are being found
 		    	found = 1
-		    	msg = "Facial features found!"
+		    	msg = "Facial features found!" # Say they're being found
 		    else:
 		    	found = 0
-		    	msg = "Facial features NOT found!"
+		    	msg = "Facial features NOT found!" # Else say they're not being found
 
 		    print msg
 		    
 		    time.sleep(.4)
 		    key = cv.waitKey(20)
 
-		    if key:
+		    if key: # Ensure 
 		    	if found == 1:
 		    		cv.imwrite('../capturedimg/face1.jpg', frame)
 		    		Start_Crop('../capturedimg', 1)
 		    		print 'rsyncing..'
-		    		os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg')
+		    		# os.system('rsync ../capturedimg/face1_crop.jpg c1312433@lapis.cs.cf.ac.uk:/home/c1312433/CM2301/capturedimg')
 		    		break
 
 		    	else:
@@ -83,5 +83,3 @@ class Capture:
 		cv.destroyAllWindows()
 		clean('../capturedimg')
 
-	#ImageFromCam() # COMMENT THIS LATER
-	#execfile('Crop.py')
