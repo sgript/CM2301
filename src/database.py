@@ -16,7 +16,7 @@ class database(object):
         crs = self.con.cursor()
         ids,names = self.get_rooms_from_groups()
 
-        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms, group_id) VALUES('%s','%s','%s','%s','%s, %s');" % (first_name,last_name,path_to_face,passphrase,rooms,groups)
+        query = "INSERT INTO user_records(forename, surname, photo_file, audio_file, specified_rooms, group_id) VALUES('%s','%s','%s','%s','%s', '%s');" % (first_name,last_name,path_to_face,passphrase,rooms,groups)
         crs.execute(query)
         query = "SELECT user_id FROM user_records WHERE photo_file='%s' AND audio_file='%s';" % (path_to_face, passphrase)
         user_id = crs.execute(query)
@@ -38,16 +38,22 @@ class database(object):
 
     def verify(self,path_to_face, passphrase, room):#verify a user can access a room
         crs = self.con.cursor()
-        query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN user_groups WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
+        query = "SELECT user_groups.rooms,user_records.specified_rooms FROM user_records INNER JOIN ON user_groups.group_id=user_records.group_id WHERE user_records.photo_file='%s' AND user_records.audio_file='%s';" % (path_to_face, passphrase)
         rooms = []
-        rooms.append(crs.execute(query))
         print path_to_face+passphrase
+	row = crs.execute(query)
+	rows = crs.fetchall()
+	i = 0
+	for row in rows:
+	    rooms.append(row[0])
+	    rooms.append(row[1])
+	    i +=1
         print rooms
         if room not in rooms:
-            print "aayyy"
+            print "Not authorised"
             return False
         else:
-            print "hi"
+            print "Authorised user"
             return True
 
     def get_groups(self):#get list of groups for the GUI
