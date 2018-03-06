@@ -4,7 +4,7 @@
 * Detecting faces and recognising faces, along with speech to text (Google Speech API) and database storing. 
 
 **Contributors:**
-* Shazaib Ahmad (sIurps)
+* Shazaib Ahmad (sgript)
 * Jack Parsons  (worzel666)
 
 **Instructions:**
